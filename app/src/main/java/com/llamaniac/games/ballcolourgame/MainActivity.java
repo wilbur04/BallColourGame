@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int score, curColor;
     private int activeColour; // your current active colour
     private TextView scoreView;
+    private int activeColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         scoreView = (TextView) findViewById(R.id.score);
         button.setOnClickListener(this);
         restart.setOnClickListener(this);
+        activeColor = (Color.parseColor("#0000ff"));
         this.score =0;
 
         activeColour = Color.parseColor("#ffff00");
@@ -44,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             public void run() {
                                 curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
                                 BallStore.INSTANCE.removeBallByIndex(0);
+                                while (BallStore.INSTANCE.getBallsByIndex(0).getColour() == curColor) {
+                                    BallStore.INSTANCE.removeBallByIndex(0);
+                                }
                                 button.setBackgroundColor(curColor);
 
                                 // change color of button
