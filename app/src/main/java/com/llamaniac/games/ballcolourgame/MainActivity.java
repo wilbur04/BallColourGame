@@ -79,34 +79,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (!gameOver) {
+
             switch (v.getId()) {
                 case R.id.button:
-                    if (curColor == activeColour) {
-                        curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
-                        BallStore.INSTANCE.removeBallByIndex(0);
-                        button.setBackgroundColor(curColor);
-                        score++;
-                        scoreView.setText("" + score);
-                        System.out.println(score);
-                    } else {
-                        lives--;
-                        livesView.setText("Lives: " + lives);
-                        if (lives == 0) {
-                            this.gameOver = true;
+                    if (!gameOver) {
+                        if (curColor == activeColour) {
+                            curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
+                            BallStore.INSTANCE.removeBallByIndex(0);
+                            button.setBackgroundColor(curColor);
+                            score++;
+                            scoreView.setText("" + score);
+                            System.out.println(score);
+                        } else {
+                            lives--;
+                            livesView.setText("Lives: " + lives);
+                            if (lives == 0) {
+                                this.gameOver = true;
+                                restart.setVisibility(View.VISIBLE);
+                            }
                         }
-                        ;
                     }
 
                     break;
 
                 case R.id.restart:
-                    Intent mIntent = getIntent();
+                    restart.setVisibility(View.INVISIBLE);
                     finish();
-                    startActivity(mIntent);
+                    startActivity(getIntent());
                     break;
                }
-            }
+
         }
 
 }
