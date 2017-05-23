@@ -12,6 +12,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button button, restart;
     private int score, curColor;
     private int activeColour; // your current active colour
+    private boolean gameOver;
+
     private TextView scoreView;
     private int activeColor;
 
@@ -40,20 +42,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void run() {
                 try {
                     while (!isInterrupted()) {
-                        Thread.sleep(1000);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
-                                BallStore.INSTANCE.removeBallByIndex(0);
-                                while (BallStore.INSTANCE.getBallsByIndex(0).getColour() == curColor) {
+                        if (!gameOver) {
+                            Thread.sleep(1000);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
                                     BallStore.INSTANCE.removeBallByIndex(0);
-                                }
-                                button.setBackgroundColor(curColor);
+                                    while (BallStore.INSTANCE.getBallsByIndex(0).getColour() == curColor) {
+                                        BallStore.INSTANCE.removeBallByIndex(0);
+                                    }
+                                    button.setBackgroundColor(curColor);
 
-                                // change color of button
-                            }
-                        });
+                                    // change color of button
+                                }
+                            });
+                        }
                     }
                 } catch (InterruptedException e) {
                 }
@@ -69,14 +73,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(v.getId()){
             case R.id.button:
                 if (curColor == activeColour){
+                    curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
+                    BallStore.INSTANCE.removeBallByIndex(0);
                     score++;
                     scoreView.setText(""+score);
-
-                    System.out.println(score);
                 } else {
-
+                    this.gameOver = true;
                 }
-                BallStore.INSTANCE.removeBallByIndex(0);
 
                 break;
 
