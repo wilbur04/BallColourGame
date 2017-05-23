@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (curColor == activeColour) {
                         curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
                         BallStore.INSTANCE.removeBallByIndex(0);
+                        button.setBackgroundColor(curColor);
                         score++;
                         scoreView.setText("" + score);
                         System.out.println(score);
