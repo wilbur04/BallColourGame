@@ -7,13 +7,13 @@ import android.graphics.Color;
  */
 
 public class Ball {
-    Color bColour;
+    int bColour;
 
-    public Ball(Color colour){
+    public Ball(int colour){
         bColour = colour;
     }
 
-    public Color getColour(){
+    public int getColour(){
         return bColour;
     }
 }

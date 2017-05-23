@@ -14,7 +14,7 @@ import java.util.Random;
 public class BallFactory {
     private ArrayList<Integer> colourlist;
 
-    private BallFactory(){
+    public BallFactory(){
         colourlist = new ArrayList<>();
         addColour();
     }
@@ -29,7 +29,7 @@ public class BallFactory {
 
     private void createBall(){
         int rand = getRandom(0,colourlist.size()-1);
-        //Ball ball = new Ball(new Color(colourlist.get(rand)));
+        Ball ball = new Ball(colourlist.get(rand));
     }
 
 

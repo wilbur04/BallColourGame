@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button.setOnClickListener(this);
         restart.setOnClickListener(this);
 
+        BallFactory bf = new BallFactory();
+
 
         Thread t = new Thread() {
 
