@@ -23,4 +23,20 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/button"
         android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:fontFamily="casual"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="?android:attr/textColorPrimaryInverse"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+
 </RelativeLayout>

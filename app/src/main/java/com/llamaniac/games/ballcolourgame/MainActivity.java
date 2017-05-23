@@ -6,11 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button button, restart;
     private int score, curColor;
     private int activeColour; // your current active colour
+    private TextView scoreView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         button = (Button) findViewById(R.id.button);
         restart = (Button) findViewById(R.id.restart);
+        scoreView = (TextView) findViewById(R.id.score);
         button.setOnClickListener(this);
         restart.setOnClickListener(this);
         this.score =0;
@@ -62,7 +65,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button:
                 if (curColor == activeColour){
                     score++;
-                    //todo update the score in view.
+                    scoreView.setText(""+score);
+
                     System.out.println(score);
                 } else {
 
