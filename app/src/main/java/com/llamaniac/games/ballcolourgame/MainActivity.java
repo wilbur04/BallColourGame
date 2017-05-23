@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean gameOver;
 
     private TextView scoreView;
+    private TextView livesView;
+    private int lives = 3;
     private int activeColor;
 
     @Override
@@ -24,12 +26,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button = (Button) findViewById(R.id.button);
         restart = (Button) findViewById(R.id.restart);
         scoreView = (TextView) findViewById(R.id.score);
+        livesView = (TextView) findViewById(R.id.lives);
         button.setOnClickListener(this);
         restart.setOnClickListener(this);
         activeColor = (Color.parseColor("#0000ff"));
         this.score =0;
 
         activeColour = Color.parseColor("#ffff00");
+
+        livesView.setText("Lives: " + lives);
 
         BallFactory bf = new BallFactory();
         for (int i = 0; i < 100; i++) {
@@ -77,8 +82,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     BallStore.INSTANCE.removeBallByIndex(0);
                     score++;
                     scoreView.setText(""+score);
+                    System.out.println(score);
                 } else {
-                    this.gameOver = true;
+                    lives--;
+                    livesView.setText("Lives: " + lives);
+                    if(lives == 0){
+                        this.gameOver = true;
+                    };
                 }
 
                 break;
