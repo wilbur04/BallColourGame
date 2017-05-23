@@ -54,6 +54,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     if (curColor == activeColour){
                                         lives--;
                                         livesView.setText("Lives: " + lives);
+                                        if (lives == 0) {
+                                            gameOver = true;
+                                            restart.setVisibility(View.VISIBLE);
+                                        }
                                     }
                                     curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
                                     BallStore.INSTANCE.removeBallByIndex(0);
