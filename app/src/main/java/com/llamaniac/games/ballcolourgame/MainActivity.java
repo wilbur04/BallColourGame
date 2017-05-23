@@ -47,11 +47,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void run() {
                 try {
                     while (!isInterrupted()) {
-                        if (!gameOver) {
+                        if (!gameOver && lives >0) {
                             Thread.sleep(1000);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    if (curColor == activeColour){
+                                        lives--;
+                                        livesView.setText("Lives: " + lives);
+                                    }
                                     curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
                                     BallStore.INSTANCE.removeBallByIndex(0);
                                     while (BallStore.INSTANCE.getBallsByIndex(0).getColour() == curColor) {

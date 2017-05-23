@@ -26,14 +26,21 @@ public class BallFactory {
         blueList = new ArrayList<>();
         greenList = new ArrayList<>();
         addColour();
+        createColourList(0);
+    }
+
+    private void createColourList(int level) {
+        for (int x=0; x <= level; x++){
+            colourlist.add(redList.get(x));
+            colourlist.add(yellowList.get(x));
+            colourlist.add(blueList.get(x));
+            colourlist.add(greenList.get(x));
+
+        }
+
     }
 
     private void addColour(){
-        colourlist.add(Color.parseColor("#0000ff"));//blue
-        colourlist.add(Color.parseColor("#00c957"));//green
-        colourlist.add(Color.parseColor("#ffff00"));//yellow
-        colourlist.add(Color.parseColor("#ff0000"));//red
-        colourlist.add(Color.parseColor("#7171c6"));//purple
 
         redList.add((Color.parseColor("#ff0000")));
         redList.add((Color.parseColor("#990000")));
@@ -66,8 +73,9 @@ public class BallFactory {
         greenList.add(Color.parseColor("#999966"));
         greenList.add(Color.parseColor("#80ffcc"));
         greenList.add(Color.parseColor("#003300"));
-
     }
+
+
 
     public void createBall(){
         int rand = getRandom(0,colourlist.size()-1);
