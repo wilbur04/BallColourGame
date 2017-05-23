@@ -20,7 +20,7 @@
             android:layout_height="200dp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:background="#ffffff"
+            android:background="#f5f5f5"
             android:layout_gravity="center_horizontal|bottom"
             />
 
@@ -67,11 +67,11 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="240dp"
-        android:layout_height="240dp"
+        android:layout_width="225dp"
+        android:layout_height="225dp"
         app:srcCompat="@drawable/test"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"/>
 
 
 </RelativeLayout>
