@@ -8,6 +8,18 @@
     tools:context="com.llamaniac.games.ballcolourgame.MainActivity">
 
 
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:background="#006688"
+        app:srcCompat="@drawable/test" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -78,6 +90,42 @@
         app:srcCompat="@drawable/test"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
+
+    <ImageView
+        android:id="@+id/curColour1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        app:srcCompat="@drawable/test"
+        android:background="#006688"/>
+
+    <ImageView
+        android:id="@+id/curColour2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="#006688"
+        app:srcCompat="@drawable/test"
+        android:layout_alignTop="@+id/imageView5"
+        android:layout_toLeftOf="@+id/imageView2"
+        android:layout_toStartOf="@+id/imageView2"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/curColour3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="#006688"
+        app:srcCompat="@drawable/test"
+        android:layout_alignTop="@+id/curColour2"
+        android:layout_toRightOf="@+id/curColour2"
+        android:layout_toEndOf="@+id/curColour2"
+        android:visibility="invisible"
+        />
 
 
 </RelativeLayout>

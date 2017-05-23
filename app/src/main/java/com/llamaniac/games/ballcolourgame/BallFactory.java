@@ -37,12 +37,6 @@ public class BallFactory {
                 colourlist.add(blueList.get(x));
                 colourlist.add(greenList.get(x));
             }
-        }else{
-
-            colourlist.add(redList.get(0));
-            colourlist.add(yellowList.get(0));
-            colourlist.add(blueList.get(0));
-            colourlist.add(greenList.get(0));
         }
 
     }
@@ -101,6 +95,11 @@ public class BallFactory {
     private int getRandom(int min, int max){
         Random rand = new Random();
         return rand.nextInt(max - min +1)+min;
+    }
+
+    public int getActiveColour(){
+        int rand = getRandom(0,colourlist.size()-1);
+        return  colourlist.get(rand);
     }
 
 

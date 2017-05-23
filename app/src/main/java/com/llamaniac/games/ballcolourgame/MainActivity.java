@@ -1,24 +1,25 @@
 package com.llamaniac.games.ballcolourgame;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button button, restart;
     private int score, curColor;
-    private int activeColour; // your current active colour
+    private int activeColour1, activeColour2, activeColour3; // your current active colour
     private boolean gameOver;
 
     private TextView scoreView;
     private TextView livesView;
+    private ImageView currColourCircle1, currColourCircle2,currColourCircle3;
     private int lives = 3;
-    private int activeColor;
     private BallFactory bf;
+    private boolean  isColour2active, isColour3active;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +29,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         restart = (Button) findViewById(R.id.restart);
         scoreView = (TextView) findViewById(R.id.score);
         livesView = (TextView) findViewById(R.id.lives);
+        currColourCircle1 = (ImageView) findViewById(R.id.curColour1);
+        currColourCircle2 = (ImageView) findViewById(R.id.curColour2);
+        currColourCircle3 = (ImageView) findViewById(R.id.curColour3);
         button.setOnClickListener(this);
         restart.setOnClickListener(this);
         this.score = 0;
 
-        activeColour = Color.parseColor("#ffff00");
+        activeColour1 = Color.parseColor("#ffff00");
+        activeColour2 = Color.parseColor("#ffffff");
+        activeColour3 = Color.parseColor("#ffffff");
+        isColour2active = false;
+        isColour3active = false;
+
 
         livesView.setText("Lives: " + lives);
 
        createBalls(0);
+
 
         Thread t = new Thread() {
             int scoreStore =0, level=0;
@@ -50,12 +60,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    if (score ==scoreStore+2 ) {
+                                    if (score == scoreStore+2 ) {
                                         scoreStore = score;
                                         level++;
                                         createBalls(level);
                                     }
-                                    if (curColor == activeColour) {
+                                    if (curColor == activeColour1 || curColor == activeColour2 || curColor == activeColour3) {
                                         lives--;
                                         livesView.setText("Lives: " + lives);
                                         if (lives == 0) {
@@ -93,6 +103,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for (int i = 0; i < 100; i++) {
             bf.createBall();
         }
+
+        activeColour1 = bf.getActiveColour();
+        currColourCircle1.setBackgroundColor(activeColour1);
+        if (isColour2active) {
+            activeColour2 = bf.getActiveColour();
+            currColourCircle2.setBackgroundColor(activeColour2);
+        }if (isColour3active) {
+            activeColour3 = bf.getActiveColour();
+            currColourCircle3.setBackgroundColor(activeColour3);
+        }
     }
 
     @Override
@@ -101,13 +121,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             switch (v.getId()) {
                 case R.id.button:
                     if (!gameOver) {
-                        if (curColor == activeColour) {
+                        if (curColor == activeColour1 || curColor == activeColour2 || curColor == activeColour3 ) {
                             curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
                             BallStore.INSTANCE.removeBallByIndex(0);
                             button.setBackgroundColor(curColor);
                             score++;
                             scoreView.setText("" + score);
-                            System.out.println(score);
+
+                            if (score == 4){
+                                isColour2active =true;
+                                currColourCircle2.setVisibility(View.VISIBLE);
+                            }if (score == 8){
+                                isColour3active = true;
+                                currColourCircle3.setVisibility(View.VISIBLE);
+                            }
+
                         } else {
                             lives--;
                             livesView.setText("Lives: " + lives);
