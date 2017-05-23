@@ -16,15 +16,15 @@ public enum BallStore {
         store = new ArrayList<Ball>();
     }
 
-    private void addBall(Ball ball){
+    public void addBall(Ball ball){
         store.add(ball);
     }
 
-    private Ball getBallsByIndex(int i){
+    public Ball getBallsByIndex(int i){
         return store.get(i);
     }
 
-    private void removeBallByIndex(int i){
+    public void removeBallByIndex(int i){
         store.remove(i);
     }
 

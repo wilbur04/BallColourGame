@@ -19,7 +19,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         restart.setOnClickListener(this);
 
         BallFactory bf = new BallFactory();
-
+        for (int i = 0; i < 100; i++) {
+            bf.createBall();
+        }
 
         Thread t = new Thread() {
 
@@ -31,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                int color = BallStore.INSTANCE.getBallsByIndex(0).getColour();
+                                BallStore.INSTANCE.removeBallByIndex(0);
+                                button.setBackgroundColor(color);
                                 // change color of button
                             }
                         });

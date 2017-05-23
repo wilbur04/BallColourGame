@@ -27,11 +27,11 @@ public class BallFactory {
         colourlist.add(Color.parseColor("#7171c6"));//purple
     }
 
-    private void createBall(){
+    public void createBall(){
         int rand = getRandom(0,colourlist.size()-1);
         Ball ball = new Ball(colourlist.get(rand));
+        BallStore.INSTANCE.addBall(ball);
     }
-
 
 
     private int getRandom(int min, int max){
