@@ -28,6 +28,10 @@ public enum BallStore {
         store.remove(i);
     }
 
+    public void emptyLeast(){
+        store.clear();
+    }
+
 
 
 

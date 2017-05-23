@@ -29,15 +29,29 @@ public class BallFactory {
         createColourList(0);
     }
 
-    private void createColourList(int level) {
-        for (int x=0; x <= level; x++){
-            colourlist.add(redList.get(x));
-            colourlist.add(yellowList.get(x));
-            colourlist.add(blueList.get(x));
-            colourlist.add(greenList.get(x));
+    public void createColourList(int level) {
+        if (level <=6 ){
+            for (int x=0; x <= level; x++) {
+                colourlist.add(redList.get(x));
+                colourlist.add(yellowList.get(x));
+                colourlist.add(blueList.get(x));
+                colourlist.add(greenList.get(x));
+            }
+        }else{
 
+            colourlist.add(redList.get(0));
+            colourlist.add(yellowList.get(0));
+            colourlist.add(blueList.get(0));
+            colourlist.add(greenList.get(0));
         }
 
+    }
+
+    public void createColourList() {
+                colourlist.add(redList.get(0));
+                colourlist.add(yellowList.get(0));
+                colourlist.add(blueList.get(0));
+                colourlist.add(greenList.get(0));
     }
 
     private void addColour(){

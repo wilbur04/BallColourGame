@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView livesView;
     private int lives = 3;
     private int activeColor;
+    private BallFactory bf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +36,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         livesView.setText("Lives: " + lives);
 
-        BallFactory bf = new BallFactory();
-        for (int i = 0; i < 100; i++) {
-            bf.createBall();
-        }
+       createBalls(0);
 
         Thread t = new Thread() {
+            int scoreStore =0, level=0;
 
             @Override
             public void run() {
@@ -51,7 +50,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    if (curColor == activeColour){
+                                    if (score ==scoreStore+2 ) {
+                                        scoreStore = score;
+                                        level++;
+                                        createBalls(level);
+                                    }
+                                    if (curColor == activeColour) {
                                         lives--;
                                         livesView.setText("Lives: " + lives);
                                         if (lives == 0) {
@@ -65,9 +69,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         BallStore.INSTANCE.removeBallByIndex(0);
                                     }
                                     button.setBackgroundColor(curColor);
-
                                     // change color of button
                                 }
+
+
                             });
                         }
                     }
@@ -78,6 +83,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         t.start();
 
+    }
+
+    private void createBalls(int level){
+        BallStore.INSTANCE.emptyLeast();
+        bf = new BallFactory();
+        bf.createColourList(level);
+
+        for (int i = 0; i < 100; i++) {
+            bf.createBall();
+        }
     }
 
     @Override
