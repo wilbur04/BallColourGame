@@ -1,6 +1,7 @@
 package com.llamaniac.games.ballcolourgame;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button button, restart;
+    private int score, curColor;
+    private int activeColour; // your current active colour
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +20,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         restart = (Button) findViewById(R.id.restart);
         button.setOnClickListener(this);
         restart.setOnClickListener(this);
+        this.score =0;
+
+        activeColour = Color.parseColor("#ffff00");
 
         BallFactory bf = new BallFactory();
         for (int i = 0; i < 100; i++) {
@@ -33,9 +39,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                int color = BallStore.INSTANCE.getBallsByIndex(0).getColour();
+                                curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
                                 BallStore.INSTANCE.removeBallByIndex(0);
-                                button.setBackgroundColor(color);
+                                button.setBackgroundColor(curColor);
+
                                 // change color of button
                             }
                         });
@@ -53,11 +60,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.button:
-                //if button color = active color
-                    //score++
-                    //change color
-                //else
-                    //game over -> restart button becomes visible
+                if (curColor == activeColour){
+                    score++;
+                    //todo update the score in view.
+                    System.out.println(score);
+                } else {
+
+                }
+                BallStore.INSTANCE.removeBallByIndex(0);
+
                 break;
 
             case R.id.restart:
