@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         livesView = (TextView) findViewById(R.id.lives);
         button.setOnClickListener(this);
         restart.setOnClickListener(this);
-        activeColor = (Color.parseColor("#0000ff"));
         this.score = 0;
 
         activeColour = Color.parseColor("#ffff00");

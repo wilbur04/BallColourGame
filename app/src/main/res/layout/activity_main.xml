@@ -30,17 +30,14 @@
 
     <Button
         android:id="@+id/restart"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="400dp"
-        android:layout_height="400dp"
-        android:layout_above="@+id/lives"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/button"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_centerVertical="true"
+        android:background="@color/colorDark"
         android:fontFamily="casual"
         android:text="Restart"
         android:textAllCaps="false"
-        android:textColor="?attr/colorControlNormal"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
         android:typeface="normal"
@@ -56,7 +53,7 @@
         android:fontFamily="casual"
         android:text=""
         android:textAlignment="center"
-        android:textColor="?android:attr/textColorPrimaryInverse"
+        android:textColor="@color/colorDark"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -67,9 +64,9 @@
         android:layout_marginBottom="55dp"
         android:layout_alignParentBottom="true"
         android:fontFamily="casual"
-        android:text=""
+        android:text="0"
         android:textAlignment="center"
-        android:textColor="?android:attr/textColorPrimaryInverse"
+        android:textColor="@color/colorDark"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_centerHorizontal="true" />
