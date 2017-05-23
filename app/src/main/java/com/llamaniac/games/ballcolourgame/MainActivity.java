@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button.setOnClickListener(this);
         restart.setOnClickListener(this);
         activeColor = (Color.parseColor("#0000ff"));
-        this.score =0;
+        this.score = 0;
 
         activeColour = Color.parseColor("#ffff00");
 
@@ -75,30 +75,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.button:
-                if (curColor == activeColour){
-                    curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
-                    BallStore.INSTANCE.removeBallByIndex(0);
-                    score++;
-                    scoreView.setText(""+score);
-                    System.out.println(score);
-                } else {
-                    lives--;
-                    livesView.setText("Lives: " + lives);
-                    if(lives == 0){
-                        this.gameOver = true;
-                    };
-                }
+        if (!gameOver) {
+            switch (v.getId()) {
+                case R.id.button:
+                    if (curColor == activeColour) {
+                        curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
+                        BallStore.INSTANCE.removeBallByIndex(0);
+                        score++;
+                        scoreView.setText("" + score);
+                        System.out.println(score);
+                    } else {
+                        lives--;
+                        livesView.setText("Lives: " + lives);
+                        if (lives == 0) {
+                            this.gameOver = true;
+                        }
+                        ;
+                    }
 
-                break;
+                    break;
 
-            case R.id.restart:
-                Intent mIntent = getIntent();
-                finish();
-                startActivity(mIntent);
-                break;
+                case R.id.restart:
+                    Intent mIntent = getIntent();
+                    finish();
+                    startActivity(mIntent);
+                    break;
+               }
+            }
         }
-    }
 
 }
