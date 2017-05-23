@@ -7,22 +7,35 @@
     android:background="@color/bg"
     tools:context="com.llamaniac.games.ballcolourgame.MainActivity">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/button"/>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:background="#ffffff"
+            android:layout_gravity="center_horizontal|bottom"
+            />
+
+    </FrameLayout>
+
+
 
     <Button
         android:id="@+id/restart"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
         android:background="@drawable/button"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/score"
@@ -43,13 +56,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="55dp"
+        android:layout_alignParentBottom="true"
         android:fontFamily="casual"
         android:text=""
         android:textAlignment="center"
         android:textColor="?android:attr/textColorPrimaryInverse"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        app:srcCompat="@drawable/test"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
 
