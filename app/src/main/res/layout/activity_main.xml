@@ -116,19 +116,59 @@
         android:layout_centerHorizontal="true"
         android:visibility="invisible"/>
 
-    <Button
-        android:id="@+id/restart"
-        android:layout_width="match_parent"
+
+    <RelativeLayout
+        android:id="@+id/restartContainer"
+        android:layout_width="120dp"
         android:layout_height="80dp"
-        android:layout_centerVertical="true"
-        android:background="@color/colorDark"
-        android:fontFamily="casual"
-        android:text="Restart"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:typeface="normal"
-        android:visibility="invisible" />
+        android:layout_alignBottom="@+id/lives"
+        android:layout_toLeftOf="@+id/curColour1"
+        android:layout_toStartOf="@+id/curColour1"
+        android:visibility="invisible">
+        <Button
+            android:id="@+id/restart"
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:background="@drawable/menu_button"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textAlignment="center"/>
+
+        <ImageView
+            android:id="@+id/restartIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_replay_white_24px"
+            android:layout_centerInParent="true"
+            android:elevation="2dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/homeContainer"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_alignBottom="@+id/lives"
+        android:layout_toRightOf="@+id/curColour3"
+        android:layout_toEndOf="@+id/curColour3"
+        android:visibility="invisible">
+        <Button
+            android:id="@+id/home"
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:background="@drawable/menu_button"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textAlignment="center"/>
+
+        <ImageView
+            android:id="@+id/homeIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_home_white_24px"
+            android:layout_centerInParent="true"
+            android:elevation="2dp"/>
+    </RelativeLayout>
+
 
 </RelativeLayout>
