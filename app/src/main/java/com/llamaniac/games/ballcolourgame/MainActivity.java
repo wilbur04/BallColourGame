@@ -1,6 +1,8 @@
 package com.llamaniac.games.ballcolourgame;
 
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView scoreView;
     private TextView livesView;
     private ImageView currColourCircle1, currColourCircle2,currColourCircle3;
+    private ImageView tickMark, crossMark;
     private int lives = 3;
     private BallFactory bf;
     private boolean  isColour2active, isColour3active;
@@ -32,6 +35,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         currColourCircle1 = (ImageView) findViewById(R.id.curColour1);
         currColourCircle2 = (ImageView) findViewById(R.id.curColour2);
         currColourCircle3 = (ImageView) findViewById(R.id.curColour3);
+        tickMark = (ImageView) findViewById(R.id.tickMark);
+        crossMark = (ImageView) findViewById(R.id.crossMark);
+
         button.setOnClickListener(this);
         restart.setOnClickListener(this);
 
@@ -58,6 +64,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     while (!isInterrupted()) {
                         if (!gameOver && lives >0) {
                             Thread.sleep(1000);
+                            handler.sendEmptyMessage(0);
+                            tickMark.setVisibility(View.INVISIBLE);
+                            crossMark.setVisibility(View.INVISIBLE);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -125,9 +134,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.button:
                     if (!gameOver) {
                         if (curColor == activeColour1 || curColor == activeColour2 || curColor == activeColour3 ) {
-
+                            button.setClickable(false);
+                            tickMark.setVisibility(View.VISIBLE);
                             score++;
                             scoreView.setText("" + score);
+                            curColor = Color.parseColor("#f5f5f5");
 
                             if (score == 4){  // todo change
                                 isColour2active =true;
@@ -138,6 +149,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
 
                         } else {
+                            crossMark.setVisibility(View.VISIBLE);
+                            button.setClickable(false);
                             lives--;
                             livesView.setText("Lives: " + lives);
                             if (lives == 0) {
@@ -146,11 +159,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                             }
                         }
-                        if (!gameOver) {
-                            curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
-                            BallStore.INSTANCE.removeBallByIndex(0);
-                            button.setBackgroundColor(curColor);
-                        }
+
+
+/*
+                        curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
+                        BallStore.INSTANCE.removeBallByIndex(0);
+                        button.setBackgroundColor(curColor);
+  */
                     }
 
                     break;
@@ -164,4 +179,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
+
+    public Handler handler = new Handler(){
+      public void handleMessage(Message m){
+          button.setClickable(true);
+      }
+    };
 }

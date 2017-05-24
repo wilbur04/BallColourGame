@@ -111,5 +111,24 @@
         android:layout_centerHorizontal="true"/>
 
 
+    <ImageView
+        android:id="@+id/tickMark"
+        android:layout_width="1600dp"
+        android:layout_height="160dp"
+        android:src="@drawable/ic_done_white_24px"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/crossMark"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:src="@drawable/ic_close_white_24px"
+        android:layout_alignTop="@+id/tickMark"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"/>
+
 
 </RelativeLayout>
