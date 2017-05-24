@@ -14,10 +14,9 @@
         android:layout_height="30dp"
         app:srcCompat="@drawable/test"
         android:background="#006688"
-        android:layout_marginTop="27dp"
-        android:layout_below="@+id/score"
-        android:layout_toLeftOf="@+id/curColour2"
-        android:layout_toStartOf="@+id/curColour2" />
+        android:layout_alignTop="@+id/score"
+        android:layout_toLeftOf="@+id/imageView2"
+        android:layout_toStartOf="@+id/imageView2" />
 
     <ImageView
         android:id="@+id/curColour2"
@@ -27,7 +26,8 @@
         app:srcCompat="@drawable/test"
         android:visibility="invisible"
         android:layout_alignTop="@+id/curColour1"
-        android:layout_centerHorizontal="true" />
+        android:layout_toRightOf="@+id/curColour1"
+        android:layout_toEndOf="@+id/curColour1" />
 
     <ImageView
         android:id="@+id/curColour3"
@@ -102,10 +102,10 @@
         android:layout_width="1600dp"
         android:layout_height="160dp"
         android:src="@drawable/ic_done_white_24px"
+        android:visibility="invisible"
         android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:visibility="invisible"/>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:id="@+id/crossMark"
@@ -122,8 +122,7 @@
         android:layout_width="120dp"
         android:layout_height="80dp"
         android:layout_alignBottom="@+id/lives"
-        android:layout_toLeftOf="@+id/curColour1"
-        android:layout_toStartOf="@+id/curColour1"
+        android:layout_marginLeft="40dp"
         android:visibility="invisible">
         <Button
             android:id="@+id/restart"
@@ -149,26 +148,58 @@
         android:layout_width="120dp"
         android:layout_height="80dp"
         android:layout_alignBottom="@+id/lives"
-        android:layout_toRightOf="@+id/curColour3"
-        android:layout_toEndOf="@+id/curColour3"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="40dp"
         android:visibility="invisible">
+
         <Button
             android:id="@+id/home"
             android:layout_width="120dp"
             android:layout_height="80dp"
             android:background="@drawable/menu_button"
+            android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textAlignment="center"/>
+            android:textSize="24sp" />
 
         <ImageView
             android:id="@+id/homeIcon"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_home_white_24px"
             android:layout_centerInParent="true"
-            android:elevation="2dp"/>
+            android:elevation="2dp"
+            android:src="@drawable/ic_home_white_24px" />
     </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/heart1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignEnd="@+id/crossMark"
+        android:layout_alignRight="@+id/crossMark"
+        android:layout_alignTop="@+id/score"
+        android:src="@drawable/ic_heart_white_24px"
+        android:tint="@color/heartFull" />
+
+    <ImageView
+        android:id="@+id/heart3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_heart_white_24px"
+        android:tint="@color/heartFull"
+        android:layout_alignTop="@+id/heart2"
+        android:layout_toRightOf="@+id/heart2"
+        android:layout_toEndOf="@+id/heart2" />
+
+    <ImageView
+        android:id="@+id/heart2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_heart_white_24px"
+        android:tint="@color/heartFull"
+        android:layout_alignTop="@+id/heart1"
+        android:layout_toRightOf="@+id/heart1"
+        android:layout_toEndOf="@+id/heart1" />
 
 
 </RelativeLayout>
