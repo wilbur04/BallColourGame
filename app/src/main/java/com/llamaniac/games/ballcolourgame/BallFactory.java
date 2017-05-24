@@ -14,6 +14,7 @@ import java.util.Random;
 public class BallFactory {
     private ArrayList<Integer> colourlist;
     private ArrayList<Integer> yellowList , blueList, greenList, redList;
+    private int previousColour;
 
 
 
@@ -27,6 +28,7 @@ public class BallFactory {
         greenList = new ArrayList<>();
         addColour();
         createColourList(0);
+        previousColour = 0;
     }
 
     public void createColourList(int level) {
@@ -84,11 +86,22 @@ public class BallFactory {
     }
 
 
-
     public void createBall(){
-        int rand = getRandom(0,colourlist.size()-1);
-        Ball ball = new Ball(colourlist.get(rand));
+
+        ArrayList<Integer> tempColors = new ArrayList<>();
+
+        for (int a: colourlist) {
+            if (previousColour == 0) {
+                tempColors.add(a);
+            } else if (previousColour != a) {
+                tempColors.add(a);
+            }
+        }
+
+        int rand = getRandom(0,tempColors.size()-1);
+        Ball ball = new Ball(tempColors.get(rand));
         BallStore.INSTANCE.addBall(ball);
+        previousColour = ball.getColour();
     }
 
 

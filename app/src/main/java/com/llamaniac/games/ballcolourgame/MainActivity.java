@@ -21,9 +21,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView livesView;
     private ImageView currColourCircle1, currColourCircle2,currColourCircle3;
     private ImageView tickMark, crossMark;
-    private int lives = 3;
+    private int lives;
     private BallFactory bf;
     private boolean  isColour2active, isColour3active;
+    private Thread t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         restart.setOnClickListener(this);
 
         this.score = 0;
+        this.lives = 3;
 
         activeColour1 = Color.parseColor("#ffff00");
         activeColour2 = Color.parseColor("#ffffff");
@@ -58,21 +60,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         createBalls(0);
 
 
-        Thread t = new Thread() {
+        t = new Thread() {
             int scoreStore =0, level=0;
 
             @Override
             public void run() {
                 try {
                     while (!isInterrupted()) {
-                        if (!gameOver && lives >0) {
+                        if (!gameOver && lives > 0) {
                             Thread.sleep(1000);
                             handler.sendEmptyMessage(0);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     if (!gameOver) {
-                                        if (score == scoreStore+2 ) {
+                                        if (score == scoreStore + 2) {
                                             scoreStore = score;
                                             level++;
                                             createBalls(level);
@@ -83,14 +85,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             if (lives == 0) {
                                                 gameOver = true;
                                                 restart.setVisibility(View.VISIBLE);
+                                                t.interrupt();
                                             }
                                         }
-
                                         curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
                                         BallStore.INSTANCE.removeBallByIndex(0);
-                                        while (BallStore.INSTANCE.getBallsByIndex(0).getColour() == curColor) {
-                                            BallStore.INSTANCE.removeBallByIndex(0);
-                                        }
                                         button.setBackgroundColor(curColor);
                                         // change color of button
                                     }
@@ -100,12 +99,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 } catch (InterruptedException e) {
+                    try {
+                        throw new InterruptedException();
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
                 }
             }
         };
-
         t.start();
-
     }
 
     private void createBalls(int level){
@@ -130,7 +132,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
             switch (v.getId()) {
                 case R.id.button:
                     if (!gameOver) {
@@ -157,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             if (lives == 0) {
                                 this.gameOver = true;
                                 restart.setVisibility(View.VISIBLE);
-
+                                t.interrupt();
                             }
                         }
 
