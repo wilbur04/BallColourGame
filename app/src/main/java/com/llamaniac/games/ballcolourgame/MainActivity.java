@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         livesView.setText("Lives: " + lives);
 
-       createBalls(0);
+        createBalls(0);
 
 
         Thread t = new Thread() {
@@ -68,8 +68,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if (!gameOver && lives >0) {
                             Thread.sleep(1000);
                             handler.sendEmptyMessage(0);
-                            tickMark.setVisibility(View.INVISIBLE);
-                            crossMark.setVisibility(View.INVISIBLE);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -163,12 +161,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         }
 
-
-/*
-                        curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
-                        BallStore.INSTANCE.removeBallByIndex(0);
-                        button.setBackgroundColor(curColor);
-  */
                     }
 
                     break;
@@ -185,6 +177,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public Handler handler = new Handler(){
       public void handleMessage(Message m){
+          tickMark.setVisibility(View.INVISIBLE);
+          crossMark.setVisibility(View.INVISIBLE);
           button.setClickable(true);
       }
     };
