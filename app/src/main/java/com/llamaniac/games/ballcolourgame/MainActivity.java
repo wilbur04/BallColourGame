@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean  isColour2active, isColour3active;
     private Thread t;
     private int speed;
-    private MediaPlayer mpSuccess, mpWrong;
+    private MediaPlayer mpSuccess, mpWrong, bgMusic;
 
 
 
@@ -71,7 +71,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         createBalls(0);
 
         mpSuccess = MediaPlayer.create(this, R.raw.success);
+        mpSuccess.setVolume(100,100);
         mpWrong = MediaPlayer.create(this, R.raw.wrong);
+        bgMusic = MediaPlayer.create(this, R.raw.background);
+        bgMusic.setLooping(true);
+        bgMusic.setVolume(50,50);
+        bgMusic.start();
+
 
         t = new Thread() {
             int scoreStore =0, level=0;
@@ -100,6 +106,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             livesView.setText("Lives " + lives);
                                             if (lives == 0) {
                                                 gameOver = true;
+                                                bgMusic.setLooping(false);
+
+                                                bgMusic.stop();
+
                                                 restart.setVisibility(View.VISIBLE);
                                                 t.interrupt();
                                             }
@@ -179,6 +189,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             lives--;
                             livesView.setText("Lives " + lives);
                             if (lives == 0) {
+                                bgMusic.setLooping(false);
+                                bgMusic.stop();
                                 this.gameOver = true;
                                 restart.setVisibility(View.VISIBLE);
                                 t.interrupt();
