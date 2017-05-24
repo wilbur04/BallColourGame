@@ -3,6 +3,7 @@ package com.llamaniac.games.ballcolourgame;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -34,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         button = (Button) findViewById(R.id.button);
@@ -49,6 +49,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         button.setOnClickListener(this);
         restart.setOnClickListener(this);
+
+        Typeface customFont = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
+        scoreView.setTypeface(customFont);
+        livesView.setTypeface(customFont);
+        restart.setTypeface(customFont);
 
         this.score = 0;
         this.lives = 3;
@@ -92,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         }
                                         if (curColor == activeColour1 || curColor == activeColour2 || curColor == activeColour3) {
                                             lives--;
-                                            livesView.setText("Lives: " + lives);
+                                            livesView.setText("Lives " + lives);
                                             if (lives == 0) {
                                                 gameOver = true;
                                                 restart.setVisibility(View.VISIBLE);
@@ -172,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             crossMark.setVisibility(View.VISIBLE);
                             button.setClickable(false);
                             lives--;
-                            livesView.setText("Lives: " + lives);
+                            livesView.setText("Lives " + lives);
                             if (lives == 0) {
                                 this.gameOver = true;
                                 restart.setVisibility(View.VISIBLE);

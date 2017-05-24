@@ -1,70 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:background="#f5f5f5"
+    android:background="@color/homeBg"
+    tools:background="#afd582"
     tools:context="com.llamaniac.games.ballcolourgame.StartActivity">
-
-    <Button
-        android:id="@+id/highscoreButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/startButton"
-        android:layout_alignStart="@+id/startButton"
-        android:layout_below="@+id/startButton"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="32dp"
-        android:background="#7c7c7c"
-        android:elevation="0dp"
-        android:onClick="onClick"
-        android:text="High Score"
-        android:textColor="@android:color/background_light"
-        android:textStyle="italic" />
-
-    <Button
-        android:id="@+id/Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:background="#7c7c7c"
-        android:elevation="0dp"
-        android:onClick="onClick"
-        android:text="Help"
-        android:textColor="@android:color/background_light"
-        android:textStyle="italic"
-        android:layout_below="@+id/highscoreButton"
-        android:layout_alignLeft="@+id/highscoreButton"
-        android:layout_alignStart="@+id/highscoreButton"
-        android:layout_alignRight="@+id/highscoreButton"
-        android:layout_alignEnd="@+id/highscoreButton" />
-
-    <Button
-        android:id="@+id/startButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="75dp"
-        android:background="#7c7c7c"
-        android:elevation="0dp"
-        android:onClick="onClick"
-        android:text="Start"
-        android:textColor="?attr/colorBackgroundFloating"
-        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/Title"
+        style="@style/stokedEffect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="102dp"
-        android:fontFamily="casual"
-        android:text="TextView"
-        android:textSize="36sp"
-        android:textStyle="bold" />
+        android:text="BALSAK"
+        android:textSize="50sp" />
+
+    <Button
+        android:id="@+id/startButton"
+        style="@style/stokedEffect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/highscoreButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/menu_button"
+        android:onClick="onClick"
+        android:shadowColor="#1E88E5"
+        android:text="Start"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/highscoreButton"
+        style="@style/stokedEffect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/helpButton"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/menu_button"
+        android:onClick="onClick"
+        android:shadowColor="#1E88E5"
+        android:text="High Score"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/helpButton"
+        style="@style/stokedEffect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/menu_button"
+        android:onClick="onClick"
+        android:shadowColor="#1E88E5"
+        android:text="Help"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
 </RelativeLayout>
