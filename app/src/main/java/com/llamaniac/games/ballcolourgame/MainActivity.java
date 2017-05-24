@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         currColourCircle3 = (ImageView) findViewById(R.id.curColour3);
         button.setOnClickListener(this);
         restart.setOnClickListener(this);
+
         this.score = 0;
 
         activeColour1 = Color.parseColor("#ffff00");
@@ -81,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     button.setBackgroundColor(curColor);
                                     // change color of button
                                 }
-
 
                             });
                         }
@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             if (lives == 0) {
                                 this.gameOver = true;
                                 restart.setVisibility(View.VISIBLE);
+
                             }
                         }
                         curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
