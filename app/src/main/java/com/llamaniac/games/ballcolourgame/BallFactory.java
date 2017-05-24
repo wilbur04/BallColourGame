@@ -66,7 +66,7 @@ public class BallFactory {
         yellowList.add(Color.parseColor("#804d00"));
         yellowList.add(Color.parseColor("#ffecb3"));
 
-        blueList.add(Color.parseColor("#00c957"));
+        blueList.add(Color.parseColor("#0000ff"));
         blueList.add(Color.parseColor("#66ffff"));
         blueList.add(Color.parseColor("#333399"));
         blueList.add(Color.parseColor("#b3b3e6"));
