@@ -122,16 +122,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.button:
                     if (!gameOver) {
                         if (curColor == activeColour1 || curColor == activeColour2 || curColor == activeColour3 ) {
-                            curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
-                            BallStore.INSTANCE.removeBallByIndex(0);
-                            button.setBackgroundColor(curColor);
+
                             score++;
                             scoreView.setText("" + score);
 
-                            if (score == 4){
+                            if (score == 4){  // todo change
                                 isColour2active =true;
                                 currColourCircle2.setVisibility(View.VISIBLE);
-                            }if (score == 8){
+                            }if (score == 8){ //todo change
                                 isColour3active = true;
                                 currColourCircle3.setVisibility(View.VISIBLE);
                             }
@@ -144,6 +142,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 restart.setVisibility(View.VISIBLE);
                             }
                         }
+                        curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
+                        BallStore.INSTANCE.removeBallByIndex(0);
+                        button.setBackgroundColor(curColor);
                     }
 
                     break;
