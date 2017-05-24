@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bgMusic.setLooping(true);
         bgMusic.setVolume(80,80);
         bgMusic.start();
-        muteButton = (ImageButton) findViewById(R.id.muteButton);
+        muteButton = (ImageView) findViewById(R.id.muteButton);
         muteButton.setOnClickListener(this);
 
         t = new Thread() {
@@ -271,11 +271,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void changeMute() {
         int vol = 0;
-        int color = R.color.colorDark;
+        int color = getResources().getColor(R.color.colorPrimary);
         if (this.isMute) {
             isMute =false;
             vol = 1;
-            color = R.color.colorDisable;
+            color = getResources().getColor(R.color.colorDark);
+            //color = R.color.colorDark;
         } else {
             isMute = true;
         }

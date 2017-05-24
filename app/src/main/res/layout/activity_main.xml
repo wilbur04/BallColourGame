@@ -159,13 +159,14 @@
             android:src="@drawable/ic_home_white_24px" />
     </RelativeLayout>
 
-    <ImageButton
+    <ImageView
         android:id="@+id/muteButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:src="@drawable/ic_volume_off_white_24px"
         android:tint="@color/colorDark"
-        android:background="@null"
+        android:layout_marginTop="20px"
+        android:layout_marginRight="20px"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
