@@ -9,7 +9,7 @@
     tools:context="com.llamaniac.games.ballcolourgame.StartActivity">
 
     <RelativeLayout
-        android:id="@+id/soundScreen"
+        android:id="@+id/optionsScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="90dp"
@@ -20,7 +20,7 @@
         android:background="@color/colorDark"
         android:foregroundTint="@android:color/background_light"
         android:gravity="bottom"
-        android:visibility="visible">
+        android:visibility="invisible">
 
         <Button
             android:id="@+id/sDoneButton"
@@ -32,7 +32,7 @@
             android:text="Done" />
 
         <TextView
-            android:id="@+id/soundOptions"
+            android:id="@+id/options"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
@@ -46,6 +46,18 @@
             android:textStyle="bold" />
 
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/helpButton"
+        style="@style/stokedEffect"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/menu_button"
+        android:onClick="onClick"
+        android:shadowColor="#1E88E5"
+        android:text="/?"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
 
     <RelativeLayout
         android:id="@+id/menuLayout"
@@ -65,56 +77,6 @@
             android:textSize="50sp" />
 
         <Button
-            android:id="@+id/highscoreButton"
-            style="@style/stokedEffect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/helpButton"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/menu_button"
-            android:onClick="onClick"
-            android:shadowColor="#1E88E5"
-            android:text="High Score"
-            android:textColor="@color/white"
-            android:textSize="30sp" />
-
-        <Button
-            android:id="@+id/helpButton"
-            style="@style/stokedEffect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="80dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/menu_button"
-            android:onClick="onClick"
-            android:shadowColor="#1E88E5"
-            android:text="Help"
-            android:textColor="@color/white"
-            android:textSize="30sp" />
-
-        <Button
-            android:id="@+id/soundButton"
-            style="@style/stokedEffect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:background="@drawable/menu_button"
-            android:onClick="onClick"
-            android:shadowColor="#1E88E5"
-            android:text="Sound Options"
-            android:textColor="@color/white"
-            android:textSize="30sp"
-            android:layout_alignRight="@+id/highscoreButton"
-            android:layout_alignEnd="@+id/highscoreButton"
-            android:layout_alignLeft="@+id/highscoreButton"
-            android:layout_alignStart="@+id/highscoreButton" />
-
-        <Button
             android:id="@+id/startButton"
             style="@style/stokedEffect"
             android:layout_width="match_parent"
@@ -122,14 +84,47 @@
             android:background="@drawable/menu_button"
             android:onClick="onClick"
             android:shadowColor="#1E88E5"
-            android:text="Start"
+            android:text="Play"
             android:textColor="@color/white"
             android:textSize="30sp"
-            android:layout_above="@+id/soundButton"
-            android:layout_alignLeft="@+id/highscoreButton"
-            android:layout_alignStart="@+id/highscoreButton"
-            android:layout_alignRight="@+id/soundButton"
-            android:layout_alignEnd="@+id/soundButton" />
+            android:layout_above="@+id/highscoreButton"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="20dp"/>
+
+        <Button
+            android:id="@+id/highscoreButton"
+            style="@style/stokedEffect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/menu_button"
+            android:onClick="onClick"
+            android:shadowColor="#1E88E5"
+            android:text="Scores"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_above="@+id/optionsButton"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/optionsButton"
+            style="@style/stokedEffect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/menu_button"
+            android:onClick="onClick"
+            android:shadowColor="#1E88E5"
+            android:text="Options"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
 
     </RelativeLayout>
 
