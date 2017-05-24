@@ -50,12 +50,15 @@
     <Button
         android:id="@+id/helpButton"
         style="@style/stokedEffect"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:background="@drawable/menu_button"
+        android:padding="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
         android:onClick="onClick"
         android:shadowColor="#1E88E5"
-        android:text="/?"
+        android:text="\?"
         android:textColor="@color/white"
         android:textSize="30sp" />
 

@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -19,16 +18,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String TAG = "";
     private Button button, restart, home;
     private int score, curColor;
     private int activeColour1, activeColour2, activeColour3; // your current active colour
     private boolean gameOver;
 
-    private TextView scoreView;
-    private TextView livesView;
+    private TextView scoreView, gameOverView;
     private ImageView currColourCircle1, currColourCircle2,currColourCircle3;
-    private ImageView tickMark, crossMark;
+    private ImageView tickMark, crossMark, heart1, heart2, heart3;
     private int lives;
     private BallFactory bf;
     private boolean  isColour2active, isColour3active;
@@ -50,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         restart = (Button) findViewById(R.id.restart);
         home = (Button) findViewById(R.id.home);
         scoreView = (TextView) findViewById(R.id.score);
-        livesView = (TextView) findViewById(R.id.lives);
         currColourCircle1 = (ImageView) findViewById(R.id.curColour1);
         currColourCircle2 = (ImageView) findViewById(R.id.curColour2);
         currColourCircle3 = (ImageView) findViewById(R.id.curColour3);
@@ -58,6 +54,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         crossMark = (ImageView) findViewById(R.id.crossMark);
         homeContainer = findViewById(R.id.homeContainer);
         restartContainer = findViewById(R.id.restartContainer);
+        heart1 = (ImageView) findViewById(R.id.heart1);
+        heart2 = (ImageView) findViewById(R.id.heart2);
+        heart3 = (ImageView) findViewById(R.id.heart3);
+        gameOverView = (TextView) findViewById(R.id.gameOverText);
 
         button.setOnClickListener(this);
         restart.setOnClickListener(this);
@@ -65,9 +65,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Typeface customFont = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
         scoreView.setTypeface(customFont);
-        livesView.setTypeface(customFont);
         restart.setTypeface(customFont);
         home.setTypeface(customFont);
+        gameOverView.setTypeface(customFont);
 
         this.score = 0;
         this.lives = 3;
@@ -78,8 +78,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         activeColour3 = Color.parseColor("#ffffff");
         isColour2active = false;
         isColour3active = false;
-
-        livesView.setText("Lives " + lives);
 
         createBalls(0);
 
@@ -118,20 +116,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         }
                                         if (curColor == activeColour1 || curColor == activeColour2 || curColor == activeColour3) {
                                             lives--;
-                                            livesView.setText("Lives " + lives);
+                                            showHearts();
                                             if (lives == 0) {
                                                 gameOver = true;
                                                 bgMusic.setLooping(false);
                                                 bgMusic.stop();
                                                 restore(restartContainer);
                                                 restore(homeContainer);
+                                                restore(gameOverView);
                                                 t.interrupt();
                                             }
                                         }
                                         curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
                                         BallStore.INSTANCE.removeBallByIndex(0);
                                         button.setBackgroundColor(curColor);
-                                        // change color of button
                                     }
                                 }
 
@@ -199,28 +197,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             restore(crossMark);
                             button.setClickable(false);
                             lives--;
-                            livesView.setText("Lives " + lives);
+                            showHearts();
                             if (lives == 0) {
                                 bgMusic.setLooping(false);
                                 bgMusic.stop();
                                 this.gameOver = true;
                                 restore(restartContainer);
                                 restore(homeContainer);
+                                restore(gameOverView);
                                 t.interrupt();
                             }
                         }
-
                     }
 
                     break;
 
                 case R.id.restart:
-                    hide(restartContainer);
-                    hide(homeContainer);
                     finish();
                     startActivity(getIntent());
                     break;
-
 
                 case R.id.home:
                     launchActivity(StartActivity.class);
@@ -258,6 +253,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     private void restore(View v) {
         v.setVisibility(View.VISIBLE);
+    }
+
+    private void showHearts() {
+        if (lives == 2) {
+            heart3.setColorFilter(getResources().getColor(R.color.heartEmpty));
+        }
+        if (lives == 1) {
+            heart2.setColorFilter(getResources().getColor(R.color.heartEmpty));
+        }
+        if (lives == 0) {
+            heart1.setColorFilter(getResources().getColor(R.color.heartEmpty));
+        }
     }
 
 

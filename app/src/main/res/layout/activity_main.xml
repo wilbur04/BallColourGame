@@ -74,19 +74,6 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/lives"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="55dp"
-        android:layout_alignParentBottom="true"
-        android:fontFamily="casual"
-        android:text="0"
-        android:textAlignment="center"
-        android:textColor="@color/colorDark"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -121,8 +108,9 @@
         android:id="@+id/restartContainer"
         android:layout_width="120dp"
         android:layout_height="80dp"
-        android:layout_alignBottom="@+id/lives"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="40dp"
+        android:layout_marginBottom="40dp"
         android:visibility="invisible">
         <Button
             android:id="@+id/restart"
@@ -147,9 +135,10 @@
         android:id="@+id/homeContainer"
         android:layout_width="120dp"
         android:layout_height="80dp"
-        android:layout_alignBottom="@+id/lives"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="40dp"
+        android:layout_marginBottom="40dp"
         android:visibility="invisible">
 
         <Button
@@ -211,6 +200,29 @@
         android:layout_alignTop="@+id/heart1"
         android:layout_toRightOf="@+id/heart1"
         android:layout_toEndOf="@+id/heart1" />
+
+    <TextView
+        android:id="@+id/gameOverText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:background="@color/gameOver"
+        android:text="Game Over"
+        android:textAlignment="center"
+        android:textSize="23sp"
+        android:layout_below="@+id/curColour1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/white"
+        android:shadowDx="8"
+        android:shadowDy="8"
+        android:shadowRadius="1"
+        android:shadowColor="#1E88E5"
+        style="@style/stokedEffect"
+        android:elevation="2dp"
+        android:visibility="invisible"/>
 
 
 </RelativeLayout>
