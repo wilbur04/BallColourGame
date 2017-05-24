@@ -61,26 +61,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    if (score == scoreStore+2 ) {
-                                        scoreStore = score;
-                                        level++;
-                                        createBalls(level);
-                                    }
-                                    if (curColor == activeColour1 || curColor == activeColour2 || curColor == activeColour3) {
-                                        lives--;
-                                        livesView.setText("Lives: " + lives);
-                                        if (lives == 0) {
-                                            gameOver = true;
-                                            restart.setVisibility(View.VISIBLE);
+                                    if (!gameOver) {
+                                        if (score == scoreStore+2 ) {
+                                            scoreStore = score;
+                                            level++;
+                                            createBalls(level);
                                         }
-                                    }
-                                    curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
-                                    BallStore.INSTANCE.removeBallByIndex(0);
-                                    while (BallStore.INSTANCE.getBallsByIndex(0).getColour() == curColor) {
+                                        if (curColor == activeColour1 || curColor == activeColour2 || curColor == activeColour3) {
+                                            lives--;
+                                            livesView.setText("Lives: " + lives);
+                                            if (lives == 0) {
+                                                gameOver = true;
+                                                restart.setVisibility(View.VISIBLE);
+                                            }
+                                        }
+
+                                        curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
                                         BallStore.INSTANCE.removeBallByIndex(0);
+                                        while (BallStore.INSTANCE.getBallsByIndex(0).getColour() == curColor) {
+                                            BallStore.INSTANCE.removeBallByIndex(0);
+                                        }
+                                        button.setBackgroundColor(curColor);
+                                        // change color of button
                                     }
-                                    button.setBackgroundColor(curColor);
-                                    // change color of button
                                 }
 
                             });
@@ -143,9 +146,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                             }
                         }
-                        curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
-                        BallStore.INSTANCE.removeBallByIndex(0);
-                        button.setBackgroundColor(curColor);
+                        if (!gameOver) {
+                            curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
+                            BallStore.INSTANCE.removeBallByIndex(0);
+                            button.setBackgroundColor(curColor);
+                        }
                     }
 
                     break;
