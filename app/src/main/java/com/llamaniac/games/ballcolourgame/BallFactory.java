@@ -99,7 +99,9 @@ public class BallFactory {
 
     public int getActiveColour(){
         int rand = getRandom(0,colourlist.size()-1);
-        return  colourlist.get(rand);
+        int colour = colourlist.get(rand);
+        colourlist.remove(rand);
+        return  colour;
     }
 
 
