@@ -9,12 +9,15 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button button, restart;
+    private Button button, restart, home;
     private int score, curColor;
     private int activeColour1, activeColour2, activeColour3; // your current active colour
     private boolean gameOver;
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Thread t;
     private int speed;
     private MediaPlayer mpSuccess, mpWrong, bgMusic;
+    private View homeContainer, restartContainer;
 
 
 
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         button = (Button) findViewById(R.id.button);
         restart = (Button) findViewById(R.id.restart);
+        home = (Button) findViewById(R.id.home);
         scoreView = (TextView) findViewById(R.id.score);
         livesView = (TextView) findViewById(R.id.lives);
         currColourCircle1 = (ImageView) findViewById(R.id.curColour1);
@@ -46,14 +51,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         currColourCircle3 = (ImageView) findViewById(R.id.curColour3);
         tickMark = (ImageView) findViewById(R.id.tickMark);
         crossMark = (ImageView) findViewById(R.id.crossMark);
+        homeContainer = findViewById(R.id.homeContainer);
+        restartContainer = findViewById(R.id.restartContainer);
 
         button.setOnClickListener(this);
         restart.setOnClickListener(this);
+        home.setOnClickListener(this);
+
 
         Typeface customFont = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
         scoreView.setTypeface(customFont);
         livesView.setTypeface(customFont);
         restart.setTypeface(customFont);
+        home.setTypeface(customFont);
 
         this.score = 0;
         this.lives = 3;
@@ -65,8 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         isColour2active = false;
         isColour3active = false;
 
-
-        livesView.setText("Lives: " + lives);
+        livesView.setText("Lives " + lives);
 
         createBalls(0);
 
@@ -80,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         t = new Thread() {
-            int scoreStore =0, level=0;
+            int scoreStore = 0, level = 0;
 
             @Override
             public void run() {
@@ -107,10 +116,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             if (lives == 0) {
                                                 gameOver = true;
                                                 bgMusic.setLooping(false);
-
                                                 bgMusic.stop();
-
-                                                restart.setVisibility(View.VISIBLE);
+                                                restore(restartContainer);
+                                                restore(homeContainer);
                                                 t.interrupt();
                                             }
                                         }
@@ -168,23 +176,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (!gameOver) {
                         if (curColor == activeColour1 || curColor == activeColour2 || curColor == activeColour3 ) {
                             button.setClickable(false);
-                            tickMark.setVisibility(View.VISIBLE);
+                            restore(tickMark);
                             mpSuccess.start();
                             score++;
                             scoreView.setText("" + score);
                             curColor = Color.parseColor("#f5f5f5");
 
                             if (score == 4){  // todo change
-                                isColour2active =true;
-                                currColourCircle2.setVisibility(View.VISIBLE);
+                                isColour2active = true;
+                                restore(currColourCircle2);
                             }if (score == 8){ //todo change
                                 isColour3active = true;
-                                currColourCircle3.setVisibility(View.VISIBLE);
+                                restore(currColourCircle3);
                             }
 
                         } else {
                             mpWrong.start();
-                            crossMark.setVisibility(View.VISIBLE);
+                            restore(crossMark);
                             button.setClickable(false);
                             lives--;
                             livesView.setText("Lives " + lives);
@@ -192,7 +200,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 bgMusic.setLooping(false);
                                 bgMusic.stop();
                                 this.gameOver = true;
-                                restart.setVisibility(View.VISIBLE);
+                                restore(restartContainer);
+                                restore(homeContainer);
                                 t.interrupt();
                             }
                         }
@@ -202,20 +211,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
 
                 case R.id.restart:
-                    restart.setVisibility(View.INVISIBLE);
+                    hide(restartContainer);
+                    hide(homeContainer);
                     finish();
                     startActivity(getIntent());
                     break;
                }
 
+                case R.id.home:
+                    launchActivity(StartActivity.class);
+                    break;
+
+                }
         }
 
 
     public Handler handler = new Handler(){
       public void handleMessage(Message m){
-          tickMark.setVisibility(View.INVISIBLE);
-          crossMark.setVisibility(View.INVISIBLE);
+          hide(tickMark);
+          hide(crossMark);
           button.setClickable(true);
       }
     };
+
+    private void launchActivity(Class activity) {
+        Intent intent = new Intent(this, activity);
+        this.startActivity(intent);
+    }
+
+    private void hide(View v) {
+        v.setVisibility(View.INVISIBLE);
+    }
+    private void restore(View v) {
+        v.setVisibility(View.VISIBLE);
+    }
 }
