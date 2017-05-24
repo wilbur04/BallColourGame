@@ -2,6 +2,7 @@ package com.llamaniac.games.ballcolourgame;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private BallFactory bf;
     private boolean  isColour2active, isColour3active;
     private Thread t;
+    private int speed;
+    private MediaPlayer mpSuccess, mpWrong;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         this.score = 0;
         this.lives = 3;
+        this.speed = 1000;
 
         activeColour1 = Color.parseColor("#ffff00");
         activeColour2 = Color.parseColor("#ffffff");
@@ -59,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         createBalls(0);
 
+        mpSuccess = MediaPlayer.create(this, R.raw.success);
+        mpWrong = MediaPlayer.create(this, R.raw.wrong);
 
         t = new Thread() {
             int scoreStore =0, level=0;
@@ -67,8 +75,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void run() {
                 try {
                     while (!isInterrupted()) {
+                        if (BallStore.INSTANCE.islow()){
+                            createBalls(level);
+                        }
                         if (!gameOver && lives > 0) {
-                            Thread.sleep(1000);
+                            Thread.sleep(speed);
                             handler.sendEmptyMessage(0);
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -134,10 +145,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.button:
+                    if (speed > 500) {
+                        this.speed = speed - 10;
+                    }else{
+
+                    }
                     if (!gameOver) {
                         if (curColor == activeColour1 || curColor == activeColour2 || curColor == activeColour3 ) {
                             button.setClickable(false);
                             tickMark.setVisibility(View.VISIBLE);
+                            mpSuccess.start();
                             score++;
                             scoreView.setText("" + score);
                             curColor = Color.parseColor("#f5f5f5");
@@ -151,6 +168,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
 
                         } else {
+                            mpWrong.start();
                             crossMark.setVisibility(View.VISIBLE);
                             button.setClickable(false);
                             lives--;

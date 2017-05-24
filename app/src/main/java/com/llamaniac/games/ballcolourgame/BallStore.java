@@ -32,6 +32,13 @@ public enum BallStore {
         store.clear();
     }
 
+    public boolean islow(){
+        if (store.size()<=1){
+            return true;
+        }
+        return false;
+    }
+
 
 
 
