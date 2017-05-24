@@ -8,15 +8,18 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "";
     private Button button, restart, home;
     private int score, curColor;
     private int activeColour1, activeColour2, activeColour3; // your current active colour
@@ -29,10 +32,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int lives;
     private BallFactory bf;
     private boolean  isColour2active, isColour3active;
+    private boolean isMute = false;
     private Thread t;
     private int speed;
     private MediaPlayer mpSuccess, mpWrong, bgMusic;
     private View homeContainer, restartContainer;
+    private ImageView muteButton;
 
 
 
@@ -58,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         restart.setOnClickListener(this);
         home.setOnClickListener(this);
 
-
         Typeface customFont = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
         scoreView.setTypeface(customFont);
         livesView.setTypeface(customFont);
@@ -79,14 +83,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         createBalls(0);
 
-        mpSuccess = MediaPlayer.create(this, R.raw.success);
+        mpSuccess = MediaPlayer.create(this, R.raw.correct);
         mpSuccess.setVolume(100,100);
         mpWrong = MediaPlayer.create(this, R.raw.wrong);
+        mpWrong.setVolume(100,100);
         bgMusic = MediaPlayer.create(this, R.raw.background);
         bgMusic.setLooping(true);
-        bgMusic.setVolume(50,50);
+        bgMusic.setVolume(80,80);
         bgMusic.start();
-
+        muteButton = (ImageButton) findViewById(R.id.muteButton);
+        muteButton.setOnClickListener(this);
 
         t = new Thread() {
             int scoreStore = 0, level = 0;
@@ -170,8 +176,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.button:
                     if (speed > 500) {
                         this.speed = speed - 10;
-                    }else{
-
                     }
                     if (!gameOver) {
                         if (curColor == activeColour1 || curColor == activeColour2 || curColor == activeColour3 ) {
@@ -216,15 +220,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     finish();
                     startActivity(getIntent());
                     break;
-               }
+
 
                 case R.id.home:
                     launchActivity(StartActivity.class);
                     break;
 
+                case R.id.muteButton:
+                    changeMute();
+                    break;
                 }
         }
 
+
+    @Override
+    public void onBackPressed()
+    {
+        bgMusic.stop();
+        super.onBackPressed();
+    }
 
     public Handler handler = new Handler(){
       public void handleMessage(Message m){
@@ -245,4 +259,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void restore(View v) {
         v.setVisibility(View.VISIBLE);
     }
+
+
+
+    private void changeMute() {
+        int vol = 0;
+        int color = R.color.colorDark;
+        if (this.isMute) {
+            isMute =false;
+            vol = 1;
+            color = R.color.colorDisable;
+        } else {
+            isMute = true;
+        }
+        bgMusic.setVolume(vol, vol);
+        mpSuccess.setVolume(vol, vol);
+        mpWrong.setVolume(vol, vol);
+        muteButton.setColorFilter(color);
+    }
+
+
 }
