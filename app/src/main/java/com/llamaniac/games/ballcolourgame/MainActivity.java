@@ -1,6 +1,7 @@
 package com.llamaniac.games.ballcolourgame;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.graphics.Typeface;
@@ -29,12 +30,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int lives;
     private BallFactory bf;
     private boolean  isColour2active, isColour3active;
-    private boolean isMute = false;
+    private boolean isMute = false, musicDisabled;
     private Thread t;
     private int speed;
     private MediaPlayer mpSuccess, mpWrong, bgMusic;
     private View homeContainer, restartContainer;
     private ImageView muteButton;
+    private String prefsName;
 
 
 
@@ -42,6 +44,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
         super.onCreate(savedInstanceState);
+
+        prefsName = "ballPrefsFile";
+        SharedPreferences prefs = getSharedPreferences(prefsName, MODE_PRIVATE);
+
+
         setContentView(R.layout.activity_main);
         button = (Button) findViewById(R.id.button);
         restart = (Button) findViewById(R.id.restart);
@@ -82,15 +89,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         createBalls(0);
 
         mpSuccess = MediaPlayer.create(this, R.raw.correct);
-        mpSuccess.setVolume(100,100);
         mpWrong = MediaPlayer.create(this, R.raw.wrong);
-        mpWrong.setVolume(100,100);
         bgMusic = MediaPlayer.create(this, R.raw.background);
         bgMusic.setLooping(true);
-        bgMusic.setVolume(80,80);
         bgMusic.start();
         muteButton = (ImageView) findViewById(R.id.muteButton);
         muteButton.setOnClickListener(this);
+        musicDisabled = prefs.getBoolean("musicPrefs", false);
+        isMute = prefs.getBoolean("mute",false);
+        if (isMute){
+            bgMusic.setVolume(0,0);
+            mpWrong.setVolume(0,0);
+            mpSuccess.setVolume(0,0);
+            muteButton.setColorFilter(getResources().getColor(R.color.colorPrimary));
+        }else{
+            if (!musicDisabled){
+                bgMusic.setVolume(1,1);
+            }else {
+                bgMusic.setVolume(0,0);
+            }
+            mpWrong.setVolume(1,1);
+            mpSuccess.setVolume(1,1);
+            muteButton.setColorFilter(getResources().getColor(R.color.colorDark));
+        }
+
 
         t = new Thread() {
             int scoreStore = 0, level = 0;
@@ -276,15 +298,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             isMute =false;
             vol = 1;
             color = getResources().getColor(R.color.colorDark);
-            //color = R.color.colorDark;
+            if (this.musicDisabled){
+                bgMusic.setVolume(0, 0);
+            } else {
+                bgMusic.setVolume(1, 1);
+            }
         } else {
+            bgMusic.setVolume(0, 0);
             isMute = true;
         }
-        bgMusic.setVolume(vol, vol);
         mpSuccess.setVolume(vol, vol);
         mpWrong.setVolume(vol, vol);
         muteButton.setColorFilter(color);
     }
 
+    @Override
+    protected void onStop(){
+        super.onStop();
+
+        SharedPreferences settings = getSharedPreferences(prefsName, MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("mute", isMute);
+        editor.commit();
+       // editor.putBoolean("musicPrefs", musicDisabled);
+
+        editor.commit();
+    }
 
 }

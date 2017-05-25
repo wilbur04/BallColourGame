@@ -209,7 +209,7 @@
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:background="@color/gameOver"
-        android:text="Game Over"
+        android:text="@string/gameOver"
         android:textAlignment="center"
         android:textSize="23sp"
         android:layout_below="@+id/curColour1"

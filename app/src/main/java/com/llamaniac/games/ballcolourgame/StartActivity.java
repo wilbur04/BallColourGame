@@ -1,6 +1,7 @@
 package com.llamaniac.games.ballcolourgame;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.RelativeLayout;
 
@@ -16,11 +19,21 @@ public class StartActivity extends AppCompatActivity  implements View.OnClickLis
     private TextView title, options;
     private RelativeLayout helpLayout;
     private RelativeLayout optionsLayout;
+    private Switch musicSwitch, soundSwitch;
+    private String prefsName;
+    private boolean musicDisabled, allSoundsMute;
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        prefsName = "ballPrefsFile";
+        prefs = getSharedPreferences(prefsName, MODE_PRIVATE);
+
+        allSoundsMute = prefs.getBoolean("mute",false);
+        musicDisabled = prefs.getBoolean("musicPrefs", false);
 
         Typeface customFont = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
 
@@ -34,6 +47,31 @@ public class StartActivity extends AppCompatActivity  implements View.OnClickLis
         optionsLayout = (RelativeLayout) findViewById(R.id.optionsScreen);
         options = (TextView) findViewById(R.id.options);
         optionsBtn = (Button) findViewById(R.id.optionsButton);
+        musicSwitch = (Switch) findViewById(R.id.musicSwitch);
+        musicSwitch.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                System.out.println("found vhange in music");
+                SharedPreferences mprefs = getSharedPreferences(prefsName,0);
+                SharedPreferences.Editor editor = mprefs.edit();
+                editor.putBoolean("musicPrefs",!musicSwitch.isChecked());
+                editor.commit();
+            }
+        });
+
+        soundSwitch = (Switch) findViewById(R.id.allSoundSwitch);
+        soundSwitch.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                System.out.println("found vhange in mute");
+                SharedPreferences mprefs = getSharedPreferences(prefsName,0);
+                SharedPreferences.Editor editor = mprefs.edit();
+                editor.putBoolean("mute",!soundSwitch.isChecked());
+                editor.commit();
+            }
+        });
+
+
 
         startBtn.setOnClickListener(this);
         doneBtn.setOnClickListener(this);
@@ -75,20 +113,31 @@ public class StartActivity extends AppCompatActivity  implements View.OnClickLis
             case R.id.optionsButton:
                 Animation fadeIn2 = AnimationUtils.loadAnimation(getApplicationContext(),
                         R.anim.fadein);
-                helpLayout.startAnimation(fadeIn2);
-                helpLayout.setVisibility(View.VISIBLE);
+                optionsLayout.startAnimation(fadeIn2);
+                optionsLayout.setVisibility(View.VISIBLE);
+                musicSwitch.setChecked(!prefs.getBoolean("musicPrefs", true));
+                soundSwitch.setChecked(!prefs.getBoolean("mute", true));
+
                 break;
             case R.id.sDoneButton:
                 Animation fadeOut2 = AnimationUtils.loadAnimation(getApplicationContext(),
                         R.anim.fadeout);
-                helpLayout.startAnimation(fadeOut2);
-                helpLayout.setVisibility(View.INVISIBLE);
+                optionsLayout.startAnimation(fadeOut2);
+                optionsLayout.setVisibility(View.INVISIBLE);
                 break;
         }
     }
 
+
     private void launchActivity(Class activity) {
         Intent intent = new Intent(this, activity);
         this.startActivity(intent);
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+
+
     }
 }
