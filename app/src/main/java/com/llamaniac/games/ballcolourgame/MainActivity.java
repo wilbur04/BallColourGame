@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.button:
-                    if (speed > 500) {
+                    if (speed > 700) {
                         this.speed = speed - 10;
                     }
                     if (!gameOver) {
@@ -222,6 +222,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }if (score == 8){ //todo change
                                 isColour3active = true;
                                 restore(currColourCircle3);
+                            }if (score %10 ==0){
+                                bf.removeColour();
                             }
 
                         } else {
