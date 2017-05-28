@@ -1,5 +1,6 @@
 package com.llamaniac.games.ballcolourgame;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -276,6 +277,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 btnHighScore.setBackgroundDrawable(DrawableCompat.unwrap(wrapDrawable));
             }
         }
+        SharedPreferences prefs = this.getSharedPreferences(prefsName, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        if (prefs.contains("highscore")) {
+            int highscore = prefs.getInt("highscore", 0);
+            if (score > highscore) {
+                editor.putInt("highscore", score);
+                editor.commit();
+            }
+        } else {
+            editor.putInt("highscore", score);
+            editor.commit();
+        }
+        valHighScore.setText("" + prefs.getInt("highscore", 0));
     }
     @Override
     public void onBackPressed() {
