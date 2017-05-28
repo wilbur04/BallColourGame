@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void run() {
+                button.setClickable(false);
                 try {
                     while (!isInterrupted()) {
                         if (BallStore.INSTANCE.islow()){
