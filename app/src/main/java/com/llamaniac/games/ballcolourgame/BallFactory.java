@@ -117,5 +117,26 @@ public class BallFactory {
         return  colour;
     }
 
+    public boolean isColor(int col, String color) {
+        if (color.equals("yellow")) {
+            if (yellowList.contains(col)) {
+                return true;
+            }
+        } else if (color.equals("blue")) {
+            if (blueList.contains(col)) {
+                return true;
+            }
+        } else if (color.equals("green")) {
+            if (greenList.contains(col)) {
+                return true;
+            }
+        } else if (color.equals("red")) {
+            if (redList.contains(col)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }

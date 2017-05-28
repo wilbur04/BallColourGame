@@ -2,16 +2,20 @@ package com.llamaniac.games.ballcolourgame;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -21,10 +25,11 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button button, restart, home;
     private int score, curColor;
-    private int activeColour1, activeColour2, activeColour3; // your current active colour
+    private int activeColour1, activeColour2, activeColour3, darkColor; // your current active colour
     private boolean gameOver;
-
-    private TextView scoreView, gameOverView;
+    private ImageButton btnHighScore;
+    private TextView scoreView, gameOverText, txtHighScore, valHighScore;
+    private RelativeLayout gameOverScreen;
     private ImageView currColourCircle1, currColourCircle2,currColourCircle3;
     private ImageView tickMark, crossMark, heart1, heart2, heart3;
     private int lives;
@@ -64,7 +69,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         heart1 = (ImageView) findViewById(R.id.heart1);
         heart2 = (ImageView) findViewById(R.id.heart2);
         heart3 = (ImageView) findViewById(R.id.heart3);
-        gameOverView = (TextView) findViewById(R.id.gameOverText);
+        gameOverScreen = (RelativeLayout) findViewById(R.id.gameOverOverlay);
+        gameOverText = (TextView) findViewById(R.id.gameOverText);
+        txtHighScore = (TextView) findViewById(R.id.txtHighScore);
+        valHighScore = (TextView) findViewById(R.id.valHighScore);
+        btnHighScore = (ImageButton) findViewById(R.id.btnHighScore);
 
         button.setOnClickListener(this);
         restart.setOnClickListener(this);
@@ -74,7 +83,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         scoreView.setTypeface(customFont);
         restart.setTypeface(customFont);
         home.setTypeface(customFont);
-        gameOverView.setTypeface(customFont);
+        gameOverText.setTypeface(customFont);
+        txtHighScore.setTypeface(customFont);
+        valHighScore.setTypeface(customFont);
 
         this.score = 0;
         this.lives = 3;
@@ -83,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         activeColour1 = Color.parseColor("#ffff00");
         activeColour2 = Color.parseColor("#ffffff");
         activeColour3 = Color.parseColor("#ffffff");
+        darkColor = Color.parseColor("#222222");
+
         isColour2active = false;
         isColour3active = false;
 
@@ -137,16 +150,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             createBalls(level);
                                         }
                                         if (curColor == activeColour1 || curColor == activeColour2 || curColor == activeColour3) {
+                                            mpWrong.start();
                                             lives--;
                                             showHearts();
                                             if (lives == 0) {
-                                                gameOver = true;
-                                                bgMusic.setLooping(false);
-                                                bgMusic.stop();
-                                                restore(restartContainer);
-                                                restore(homeContainer);
-                                                restore(gameOverView);
-                                                t.interrupt();
+                                                gameOver();
                                             }
                                         }
                                         curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
@@ -160,6 +168,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 } catch (InterruptedException e) {
                     try {
+                        bgMusic.stop();
                         throw new InterruptedException();
                     } catch (InterruptedException e1) {
                         e1.printStackTrace();
@@ -221,13 +230,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             lives--;
                             showHearts();
                             if (lives == 0) {
-                                bgMusic.setLooping(false);
-                                bgMusic.stop();
-                                this.gameOver = true;
-                                restore(restartContainer);
-                                restore(homeContainer);
-                                restore(gameOverView);
-                                t.interrupt();
+                                gameOver();
+
                             }
                         }
                     }
@@ -250,11 +254,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
-    @Override
-    public void onBackPressed()
-    {
+
+
+    private void gameOver() {
+        bgMusic.setLooping(false);
         bgMusic.stop();
+        this.gameOver = true;
+        restore(restartContainer);
+        restore(homeContainer);
+        restore(gameOverScreen);
+        hide(crossMark);
+        t.interrupt();
+        if (bf.isColor(curColor, "yellow")) {
+            txtHighScore.setTextColor(darkColor);
+            valHighScore.setTextColor(darkColor);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                btnHighScore.getBackground().setColorFilter(darkColor, PorterDuff.Mode.SRC_IN);
+            } else {
+                Drawable wrapDrawable = DrawableCompat.wrap(btnHighScore.getBackground());
+                DrawableCompat.setTint(wrapDrawable, darkColor);
+                btnHighScore.setBackgroundDrawable(DrawableCompat.unwrap(wrapDrawable));
+            }
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        t.interrupt();
         super.onBackPressed();
+        this.finish();
     }
 
     public Handler handler = new Handler(){
@@ -324,5 +351,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         editor.commit();
     }
+
 
 }
