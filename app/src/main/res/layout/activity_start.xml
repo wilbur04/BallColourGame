@@ -133,7 +133,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="102dp"
-            android:text="BALSAK"
+            android:text="LLAMANIAC"
             android:textSize="50sp" />
 
         <Button
@@ -226,25 +226,12 @@
             android:layout_alignTop="@+id/instructions"
             android:layout_marginTop="45dp"
             android:fontFamily="casual"
-            android:text="1. Click the colour Ball that corresponds to the colour provided"
+            android:layout_below="@+id/instructions"
+            android:text="Click the balls that appear on the top left."
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/instructions3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="casual"
-            android:text="2. Only click the colour's that are currently displayed"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
 
         <Button
             android:id="@+id/doneButton"

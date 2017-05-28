@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         this.score = 0;
         this.lives = 3;
-        this.speed = 1000;
+        this.speed = 800;
 
         activeColour1 = Color.parseColor("#ffff00");
         activeColour2 = Color.parseColor("#ffffff");
@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         if (score == scoreStore + 2) {
                                             scoreStore = score;
                                             level++;
+                                            bf.removeColour();
                                             createBalls(level);
                                         }
                                         if (curColor == activeColour1 || curColor == activeColour2 || curColor == activeColour3) {
@@ -223,8 +224,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }if (score == 8){ //todo change
                                 isColour3active = true;
                                 restore(currColourCircle3);
-                            }if (score %10 ==0){
-                                bf.removeColour();
                             }
 
                         } else {
