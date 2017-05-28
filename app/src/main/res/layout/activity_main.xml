@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg"
+    android:background="@color/homeBg"
     tools:context="com.llamaniac.games.ballcolourgame.MainActivity">
 
 
@@ -12,7 +12,7 @@
         android:id="@+id/curColour1"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        app:srcCompat="@drawable/test"
+        app:srcCompat="@drawable/blue_back"
         android:background="#006688"
         android:layout_alignTop="@+id/score"
         android:layout_toLeftOf="@+id/imageView2"
@@ -23,7 +23,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@color/bg"
-        app:srcCompat="@drawable/test"
+        app:srcCompat="@drawable/blue_back"
         android:visibility="invisible"
         android:layout_alignTop="@+id/curColour1"
         android:layout_toRightOf="@+id/curColour1"
@@ -34,7 +34,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@color/bg"
-        app:srcCompat="@drawable/test"
+        app:srcCompat="@drawable/blue_back"
         android:visibility="invisible"
         android:layout_alignTop="@+id/curColour2"
         android:layout_toRightOf="@+id/curColour2"
@@ -52,7 +52,9 @@
             android:layout_height="200dp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:background="#f5f5f5"
+            android:background="#323232"
+            android:textColor="@color/white"
+            android:textSize="28dp"
             android:layout_gravity="center_horizontal|bottom"
             />
 
@@ -70,9 +72,9 @@
         android:layout_marginTop="50dp"
         android:text="0"
         android:textAlignment="center"
-        android:textColor="@color/colorDark"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textSize="32sp"
+        android:textStyle="bold"
+        style="@style/stokedEffect"/>
 
 
     <ImageView
@@ -214,6 +216,7 @@
             android:layout_height="wrap_content"
             android:text="@string/gameOver"
             android:textSize="28sp"
+            style="@style/stokedEffect"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="120dp" />
@@ -252,9 +255,12 @@
 
     </RelativeLayout>
 
-
-
-
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        app:srcCompat="@drawable/blue_back"
+        android:layout_centerInParent="true"/>
 
 
 </RelativeLayout>

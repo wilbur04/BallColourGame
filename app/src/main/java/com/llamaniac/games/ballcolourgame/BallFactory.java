@@ -52,7 +52,7 @@ public class BallFactory {
 
     private void addColour(){
 
-        redList.add((Color.parseColor("#ff0000")));
+        redList.add((Color.parseColor("#ff3333")));
         redList.add((Color.parseColor("#990000")));
         redList.add((Color.parseColor("#ff8080")));
         redList.add((Color.parseColor("#ffcccc")));

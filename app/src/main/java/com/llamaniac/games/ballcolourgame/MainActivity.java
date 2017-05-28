@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         activeColour1 = Color.parseColor("#ffff00");
         activeColour2 = Color.parseColor("#ffffff");
         activeColour3 = Color.parseColor("#ffffff");
-        darkColor = Color.parseColor("#222222");
+        darkColor = Color.parseColor("#888888");
 
         isColour2active = false;
         isColour3active = false;
@@ -329,6 +329,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             heart1.setColorFilter(getResources().getColor(R.color.heartEmpty));
         }
     }
+
 
 
 
