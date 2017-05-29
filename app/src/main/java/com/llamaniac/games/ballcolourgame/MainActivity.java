@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             createBalls(level);
                                         }
                                         if (curColor == activeColour1 || curColor == activeColour2 || curColor == activeColour3) {
+                                            stopSounds();
                                             mpWrong.start();
                                             lives--;
                                             showHearts();
@@ -215,6 +216,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        stopSounds();
         switch (v.getId()) {
             case R.id.button:
                 if (speed > 500) {
@@ -224,7 +226,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (curColor == activeColour1 || curColor == activeColour2 || curColor == activeColour3) {
                         button.setClickable(false);
                         restore(tickMark);
-                        stopSounds();
                         mpSuccess.start();
                         score++;
                         scoreView.setText("" + score);
@@ -239,7 +240,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
 
                     } else {
-                        stopSounds();
                         mpWrong.start();
                         restore(crossMark);
                         button.setClickable(false);
@@ -271,10 +271,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void stopSounds(){
         if (mpWrong.isPlaying()) {
-            mpWrong.stop();
+            mpWrong.pause();
+            mpWrong.seekTo(0);
         }
         if (mpSuccess.isPlaying()) {
-            mpSuccess.stop();
+            //mpSuccess.stop();
+            mpSuccess.pause();
+            mpSuccess.seekTo(0);
         }
     }
 
