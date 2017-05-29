@@ -102,6 +102,35 @@
             android:layout_marginTop="33dp"
             android:layout_marginRight="@dimen/fab_margin"/>
 
+        <TextView
+            android:id="@+id/sillySound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sillySound"
+            android:layout_below="@+id/disableSound"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="180dp"
+            android:fontFamily="casual"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/disableSound"
+            android:layout_marginLeft="20dp"/>
+
+        <Switch
+            android:id="@+id/sillySoundSwitch"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/allSoundSwitch"
+            android:layout_alignLeft="@+id/sillySound"
+            android:layout_alignStart="@+id/sillySound"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="33dp"
+            android:layout_marginRight="@dimen/fab_margin"/>
+
     </RelativeLayout>
 
     <Button

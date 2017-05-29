@@ -19,10 +19,10 @@ public class StartActivity extends AppCompatActivity  implements View.OnClickLis
     private TextView title, options;
     private RelativeLayout helpLayout;
     private RelativeLayout optionsLayout;
-    private Switch musicSwitch, soundSwitch;
+    private Switch musicSwitch, soundSwitch, sillySoundSwitch;
     private String prefsName;
-    private boolean musicDisabled, allSoundsMute;
     private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +31,8 @@ public class StartActivity extends AppCompatActivity  implements View.OnClickLis
 
         prefsName = "ballPrefsFile";
         prefs = getSharedPreferences(prefsName, MODE_PRIVATE);
+        editor = prefs.edit();
 
-        allSoundsMute = prefs.getBoolean("mute",false);
-        musicDisabled = prefs.getBoolean("musicPrefs", false);
 
         Typeface customFont = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
 
@@ -51,9 +50,6 @@ public class StartActivity extends AppCompatActivity  implements View.OnClickLis
         musicSwitch.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                System.out.println("found vhange in music");
-                SharedPreferences mprefs = getSharedPreferences(prefsName,0);
-                SharedPreferences.Editor editor = mprefs.edit();
                 editor.putBoolean("musicPrefs",!musicSwitch.isChecked());
                 editor.commit();
             }
@@ -63,15 +59,19 @@ public class StartActivity extends AppCompatActivity  implements View.OnClickLis
         soundSwitch.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                System.out.println("found vhange in mute");
-                SharedPreferences mprefs = getSharedPreferences(prefsName,0);
-                SharedPreferences.Editor editor = mprefs.edit();
                 editor.putBoolean("mute",!soundSwitch.isChecked());
                 editor.commit();
             }
         });
 
-
+        sillySoundSwitch = (Switch) findViewById(R.id.sillySoundSwitch);
+        sillySoundSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                editor.putBoolean("sillySounds", sillySoundSwitch.isChecked());
+                editor.commit();
+            }
+        });
 
         startBtn.setOnClickListener(this);
         doneBtn.setOnClickListener(this);
@@ -89,7 +89,6 @@ public class StartActivity extends AppCompatActivity  implements View.OnClickLis
         helpBtn.setTypeface(customFont);
         title.setTypeface(customFont);
         optionsBtn.setTypeface(customFont);
-
     }
 
     @Override
@@ -117,6 +116,7 @@ public class StartActivity extends AppCompatActivity  implements View.OnClickLis
                 optionsLayout.setVisibility(View.VISIBLE);
                 musicSwitch.setChecked(!prefs.getBoolean("musicPrefs", true));
                 soundSwitch.setChecked(!prefs.getBoolean("mute", true));
+                sillySoundSwitch.setChecked(prefs.getBoolean("sillySounds",false));
 
                 break;
             case R.id.sDoneButton:

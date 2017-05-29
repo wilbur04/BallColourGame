@@ -3,7 +3,6 @@ package com.llamaniac.games.ballcolourgame;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -15,7 +14,6 @@ import android.os.Message;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -103,8 +101,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bf = new BallFactory();
         createBalls(0);
 
-        mpSuccess = MediaPlayer.create(this, R.raw.correct);
-        mpWrong = MediaPlayer.create(this, R.raw.wrong);
+        if (prefs.getBoolean("sillySounds", true) ){
+            mpSuccess = MediaPlayer.create(this,R.raw.yay);
+            mpWrong = MediaPlayer.create(this, R.raw.no);
+        } else  {
+            mpSuccess = MediaPlayer.create(this, R.raw.correct);
+            mpWrong = MediaPlayer.create(this, R.raw.wrong);
+        }
+
         bgMusic = MediaPlayer.create(this, R.raw.background);
         bgMusic.setLooping(true);
         bgMusic.start();
