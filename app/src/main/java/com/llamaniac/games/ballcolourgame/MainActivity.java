@@ -14,12 +14,16 @@ import android.os.Message;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button button, restart, home;
@@ -41,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private View homeContainer, restartContainer;
     private ImageView muteButton;
     private String prefsName;
+    private String username;
+    private String TAG = "";
 
 
 
@@ -51,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         prefsName = "ballPrefsFile";
         SharedPreferences prefs = getSharedPreferences(prefsName, MODE_PRIVATE);
-
 
         setContentView(R.layout.activity_main);
         button = (Button) findViewById(R.id.button);
@@ -85,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         gameOverText.setTypeface(customFont);
         txtHighScore.setTypeface(customFont);
         valHighScore.setTypeface(customFont);
+
+        username = "bob";
 
         this.score = 0;
         this.lives = 3;
@@ -306,6 +313,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editor.commit();
         }
         valHighScore.setText("" + prefs.getInt("highscore", 0));
+        addScoreToDatabase();
     }
     @Override
     public void onBackPressed() {
@@ -313,7 +321,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onBackPressed();
         this.finish();
     }
-
 
     public Handler handler = new Handler(){
       public void handleMessage(Message m){
@@ -384,6 +391,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
        // editor.putBoolean("musicPrefs", musicDisabled);
 
         editor.commit();
+    }
+
+    private void addScoreToDatabase() {
+        String type = "add";
+        String scoreString = ""+score;
+        BackgroundWorker backgroundWorker = new BackgroundWorker(this);
+        backgroundWorker.execute(type, username, scoreString);
     }
 
 

@@ -80,6 +80,7 @@ public class StartActivity extends AppCompatActivity  implements View.OnClickLis
         optionsLayout.setOnClickListener(this);
         options.setOnClickListener(this);
         optionsBtn.setOnClickListener(this);
+        highScoreBtn.setOnClickListener(this);
 
         helpLayout.bringToFront();
         optionsLayout.bringToFront();
@@ -124,6 +125,9 @@ public class StartActivity extends AppCompatActivity  implements View.OnClickLis
                         R.anim.fadeout);
                 optionsLayout.startAnimation(fadeOut2);
                 optionsLayout.setVisibility(View.INVISIBLE);
+                break;
+            case R.id.highscoreButton:
+                launchActivity(ScoresActivity.class);
                 break;
         }
     }
