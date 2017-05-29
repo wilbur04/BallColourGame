@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         isColour2active = false;
         isColour3active = false;
 
+        bf = new BallFactory();
         createBalls(0);
 
         mpSuccess = MediaPlayer.create(this, R.raw.correct);
@@ -149,7 +150,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         if (score == scoreStore + 2) {
                                             scoreStore = score;
                                             level++;
-                                            bf.removeColour();
                                             createBalls(level);
                                         }
                                         if (curColor == activeColour1 || curColor == activeColour2 || curColor == activeColour3) {
@@ -184,9 +184,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void createBalls(int level){
         BallStore.INSTANCE.emptyLeast();
-        bf = new BallFactory();
+        bf.clearList();
+        bf.removeColour();
         bf.createColourList(level);
-
         for (int i = 0; i < 100; i++) {
             bf.createBall();
         }
@@ -204,58 +204,68 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.button:
-                    if (speed > 700) {
-                        this.speed = speed - 10;
-                    }
-                    if (!gameOver) {
-                        if (curColor == activeColour1 || curColor == activeColour2 || curColor == activeColour3 ) {
-                            button.setClickable(false);
-                            restore(tickMark);
-                            mpSuccess.start();
-                            score++;
-                            scoreView.setText("" + score);
-                            curColor = Color.parseColor("#f5f5f5");
+        switch (v.getId()) {
+            case R.id.button:
+                if (speed > 500) {
+                    this.speed = speed - 10;
+                }
+                if (!gameOver) {
+                    if (curColor == activeColour1 || curColor == activeColour2 || curColor == activeColour3) {
+                        button.setClickable(false);
+                        restore(tickMark);
+                        stopSounds();
+                        mpSuccess.start();
+                        score++;
+                        scoreView.setText("" + score);
+                        curColor = Color.parseColor("#f5f5f5");
+                        if (score == 4) {  // todo change
+                            isColour2active = true;
+                            restore(currColourCircle2);
+                        }
+                        if (score == 8) { //todo change
+                            isColour3active = true;
+                            restore(currColourCircle3);
+                        }
 
-                            if (score == 4){  // todo change
-                                isColour2active = true;
-                                restore(currColourCircle2);
-                            }if (score == 8){ //todo change
-                                isColour3active = true;
-                                restore(currColourCircle3);
-                            }
+                    } else {
+                        stopSounds();
+                        mpWrong.start();
+                        restore(crossMark);
+                        button.setClickable(false);
+                        lives--;
+                        showHearts();
+                        if (lives == 0) {
+                            gameOver();
 
-                        } else {
-                            mpWrong.start();
-                            restore(crossMark);
-                            button.setClickable(false);
-                            lives--;
-                            showHearts();
-                            if (lives == 0) {
-                                gameOver();
-
-                            }
                         }
                     }
-
-                    break;
-
-                case R.id.restart:
-                    finish();
-                    startActivity(getIntent());
-                    break;
-
-                case R.id.home:
-                    launchActivity(StartActivity.class);
-                    break;
-
-                case R.id.muteButton:
-                    changeMute();
-                    break;
                 }
-        }
 
+                break;
+
+            case R.id.restart:
+                finish();
+                startActivity(getIntent());
+                break;
+
+            case R.id.home:
+                launchActivity(StartActivity.class);
+                break;
+
+            case R.id.muteButton:
+                changeMute();
+                break;
+        }
+    }
+
+    private void stopSounds(){
+        if (mpWrong.isPlaying()) {
+            mpWrong.stop();
+        }
+        if (mpSuccess.isPlaying()) {
+            mpSuccess.stop();
+        }
+    }
 
 
 
@@ -299,6 +309,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onBackPressed();
         this.finish();
     }
+
 
     public Handler handler = new Handler(){
       public void handleMessage(Message m){
@@ -360,6 +371,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStop(){
         super.onStop();
 
+        bgMusic.stop();
+        t.interrupt();
         SharedPreferences settings = getSharedPreferences(prefsName, MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean("mute", isMute);

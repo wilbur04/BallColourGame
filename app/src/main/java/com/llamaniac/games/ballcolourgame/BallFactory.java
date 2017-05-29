@@ -31,19 +31,28 @@ public class BallFactory {
     }
 
     public void createColourList(int level) {
-        ArrayList<Integer> removeColor = new ArrayList<>();
-        if (level <=6 ){
-            for (int y=0; y <= bigList.size()-1; y++) {
-                for (int x = 0; x <= level; x++) {
-                    colourlist.add(bigList.get(y).get(x));
-                }
+        if (level > 6 ){
+            level = 6;
+        }
+        for (int y=0; y <= bigList.size()-1; y++) {
+            for (int x = 0; x <= level; x++) {
+                colourlist.add(bigList.get(y).get(x));
             }
+        }System.out.println(colourlist);
+    }
+
+    public void clearList(){
+        if (!colourlist.isEmpty()) {
+            colourlist.clear();
         }
     }
 
+
     public void removeColour() {
         if (bigList.size() >= 1) {
-            bigList.remove(getRandom(0,bigList.size()-1));
+            System.out.println(bigList.size());
+            int rand = getRandom(0,bigList.size()-1);
+            bigList.remove(rand);
         }
     }
 
@@ -88,9 +97,7 @@ public class BallFactory {
 
 
     public void createBall(){
-
         ArrayList<Integer> tempColors = new ArrayList<>();
-
         for (int a: colourlist) {
             if (previousColour == 0) {
                 tempColors.add(a);
