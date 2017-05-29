@@ -255,12 +255,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.restart:
-                finish();
+                this.finish();
                 startActivity(getIntent());
                 break;
 
             case R.id.home:
-                launchActivity(StartActivity.class);
+                t.interrupt();
+                this.finish();
+                Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                //launchActivity(StartActivity.class);
                 break;
 
             case R.id.muteButton:
@@ -275,7 +280,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mpWrong.seekTo(0);
         }
         if (mpSuccess.isPlaying()) {
-            //mpSuccess.stop();
             mpSuccess.pause();
             mpSuccess.seekTo(0);
         }
