@@ -131,6 +131,42 @@
             android:layout_marginTop="33dp"
             android:layout_marginRight="@dimen/fab_margin"/>
 
+        <TextView
+            android:id="@+id/changeUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/changeUsername"
+            android:layout_below="@+id/sillySound"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="240dp"
+            android:fontFamily="casual"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/sillySound"
+            android:layout_marginLeft="20dp"/>
+
+        <EditText
+            android:id="@+id/usernameField"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="280dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:enabled="false"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change"
+            android:layout_below="@+id/sillySoundSwitch"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="@dimen/fab_margin"/>
+
     </RelativeLayout>
 
     <Button
