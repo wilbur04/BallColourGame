@@ -16,16 +16,12 @@ import android.os.Message;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button button, restart, home;
@@ -104,12 +100,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         this.score = 0;
         this.lives = 3;
-        this.speed = 1200;
+        this.speed = 1000;
 
         activeColour1 = Color.parseColor("#ffff00");
         activeColour2 = Color.parseColor("#ffffff");
         activeColour3 = Color.parseColor("#ffffff");
-        darkColor = Color.parseColor("#888888");
+        darkColor = Color.parseColor("#4e5cb8");
 
         isColour2active = false;
         isColour3active = false;
@@ -305,7 +301,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         restore(gameOverScreen);
         hide(crossMark);
         t.interrupt();
-        if (bf.isColor(curColor, "yellow")) {
+        if (bf.isLight(curColor)) {
             txtHighScore.setTextColor(darkColor);
             valHighScore.setTextColor(darkColor);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

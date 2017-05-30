@@ -115,6 +115,21 @@ public class BallFactory {
         previousColour = ball.getColour();
     }
 
+    public boolean isLight(int col) {
+        if (col == Color.parseColor("#ffecb3")) {
+            return true;
+        } else if (col == Color.parseColor("#66ffff")) {
+            return true;
+        } else if (col == Color.parseColor("#80ffcc")) {
+            return true;
+        } else if (col == Color.parseColor("#b3ffb3")) {
+            return true;
+        } else if (col == Color.parseColor("#ffcccc")) {
+            return true;
+        } else if (col == Color.parseColor("#ffff00")) {
+            return true;
+        }return false;
+    }
 
     private int getRandom(int min, int max){
         Random rand = new Random();
