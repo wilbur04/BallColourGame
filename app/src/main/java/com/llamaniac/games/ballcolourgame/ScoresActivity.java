@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -37,8 +39,14 @@ public class ScoresActivity extends AppCompatActivity  implements View.OnClickLi
         score_title.setTypeface(customFont);
         init();
 
-        BackgroundWorker backgroundWorker = new BackgroundWorker(this);
-        backgroundWorker.execute("get");
+        if (isNetworkAvailable()) {
+            BackgroundWorker backgroundWorker = new BackgroundWorker(this);
+            backgroundWorker.execute("get");
+        } else {
+            name1.setText("ERROR");
+            name2.setText("NO INTERNET ACCESS");
+            name3.setText("CANNOT GET SCORES");
+        }
 
         handler = new Handler(){
             public void handleMessage(Message m){
@@ -161,4 +169,10 @@ public class ScoresActivity extends AppCompatActivity  implements View.OnClickLi
         super.onStop();
     }
 
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 }

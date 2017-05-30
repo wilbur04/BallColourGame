@@ -26,14 +26,12 @@
             android:layout_marginBottom="10dp">
             <TextView
                 android:id="@+id/name1"
-                android:text="Name 1"
                 android:padding="3dip"
                 style="@style/stokedEffect"
                 android:textSize="30sp"
                 android:textAllCaps="true"/>
             <TextView
                 android:id="@+id/score1"
-                android:text="Score 1"
                 android:gravity="right"
                 android:padding="3dip"
                 style="@style/stokedEffect"
@@ -52,7 +50,6 @@
                 android:textAllCaps="true"/>
             <TextView
                 android:id="@+id/score2"
-                android:text="Score 2"
                 android:gravity="right"
                 android:padding="3dip"
                 style="@style/stokedEffect"
@@ -64,14 +61,12 @@
             android:layout_marginBottom="5dp">
             <TextView
                 android:id="@+id/name3"
-                android:text="Name 3"
                 android:padding="3dip"
                 style="@style/stokedEffect"
                 android:textSize="26sp"
                 android:textAllCaps="true"/>
             <TextView
                 android:id="@+id/score3"
-                android:text="Score 3"
                 android:gravity="right"
                 android:padding="3dip"
                 style="@style/stokedEffect"
@@ -83,14 +78,12 @@
             android:layout_marginBottom="5dp">
             <TextView
                 android:id="@+id/name4"
-                android:text="Name 4"
                 android:padding="3dip"
                 style="@style/stokedEffect"
                 android:textSize="26sp"
                 android:textAllCaps="true"/>
             <TextView
                 android:id="@+id/score4"
-                android:text="Score 4"
                 android:gravity="right"
                 android:padding="3dip"
                 style="@style/stokedEffect"
@@ -102,14 +95,12 @@
             android:layout_marginBottom="5dp">
             <TextView
                 android:id="@+id/name5"
-                android:text="Name 5"
                 android:padding="3dip"
                 style="@style/stokedEffect"
                 android:textSize="26sp"
                 android:textAllCaps="true"/>
             <TextView
                 android:id="@+id/score5"
-                android:text="Score 5"
                 android:gravity="right"
                 android:padding="3dip"
                 style="@style/stokedEffect"
@@ -121,14 +112,12 @@
             android:layout_marginBottom="5dp">
             <TextView
                 android:id="@+id/name6"
-                android:text="Name 6"
                 android:padding="3dip"
                 style="@style/stokedEffect"
                 android:textSize="26sp"
                 android:textAllCaps="true"/>
             <TextView
                 android:id="@+id/score6"
-                android:text="Score 6"
                 android:gravity="right"
                 android:padding="3dip"
                 style="@style/stokedEffect"
@@ -140,14 +129,12 @@
             android:layout_marginBottom="5dp">
             <TextView
                 android:id="@+id/name7"
-                android:text="Name 7"
                 android:padding="3dip"
                 style="@style/stokedEffect"
                 android:textSize="26sp"
                 android:textAllCaps="true"/>
             <TextView
                 android:id="@+id/score7"
-                android:text="Score 7"
                 android:gravity="right"
                 android:padding="3dip"
                 style="@style/stokedEffect"
@@ -159,14 +146,12 @@
             android:layout_marginBottom="5dp">
             <TextView
                 android:id="@+id/name8"
-                android:text="Name 8"
                 android:padding="3dip"
                 style="@style/stokedEffect"
                 android:textSize="26sp"
                 android:textAllCaps="true"/>
             <TextView
                 android:id="@+id/score8"
-                android:text="Score 8"
                 android:gravity="right"
                 android:padding="3dip"
                 style="@style/stokedEffect"
@@ -178,14 +163,12 @@
             android:layout_marginBottom="5dp">
             <TextView
                 android:id="@+id/name9"
-                android:text="Name 9"
                 android:padding="3dip"
                 style="@style/stokedEffect"
                 android:textSize="26sp"
                 android:textAllCaps="true"/>
             <TextView
                 android:id="@+id/score9"
-                android:text="Score 9"
                 android:gravity="right"
                 android:padding="3dip"
                 style="@style/stokedEffect"
@@ -197,14 +180,12 @@
             android:layout_marginBottom="5dp">
             <TextView
                 android:id="@+id/name10"
-                android:text="Name 10"
                 android:padding="3dip"
                 style="@style/stokedEffect"
                 android:textSize="26sp"
                 android:textAllCaps="true"/>
             <TextView
                 android:id="@+id/score10"
-                android:text="Score 10"
                 android:gravity="right"
                 android:padding="3dip"
                 style="@style/stokedEffect"
