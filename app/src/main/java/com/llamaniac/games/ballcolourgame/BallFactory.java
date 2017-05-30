@@ -49,7 +49,7 @@ public class BallFactory {
 
 
     public void removeColour() {
-        if (bigList.size() >= 1) {
+        if (bigList.size() > 1) {
             System.out.println(bigList.size());
             int rand = getRandom(0,bigList.size()-1);
             bigList.remove(rand);
@@ -61,10 +61,11 @@ public class BallFactory {
 
         redList.add((Color.parseColor("#ff3333")));
         redList.add((Color.parseColor("#990000")));
-        redList.add((Color.parseColor("#ff8080")));
+        redList.add((Color.parseColor("#ff9999")));
         redList.add((Color.parseColor("#ffcccc")));
         redList.add((Color.parseColor("#cc0000")));
-        redList.add((Color.parseColor("#ff6699")));
+        redList.add((Color.parseColor("#ff6666")));
+        redList.add((Color.parseColor("#660000")));
         bigList.add(redList);
 
         yellowList.add(Color.parseColor("#ffff00"));
@@ -91,7 +92,7 @@ public class BallFactory {
         greenList.add(Color.parseColor("#cccc00"));
         greenList.add(Color.parseColor("#999966"));
         greenList.add(Color.parseColor("#80ffcc"));
-        greenList.add(Color.parseColor("#003300"));
+        greenList.add(Color.parseColor("#3d3d28"));
         bigList.add(greenList);
     }
 

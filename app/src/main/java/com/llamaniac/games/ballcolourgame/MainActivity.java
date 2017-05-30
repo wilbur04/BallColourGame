@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         this.score = 0;
         this.lives = 3;
-        this.speed = 800;
+        this.speed = 1200;
 
         activeColour1 = Color.parseColor("#ffff00");
         activeColour2 = Color.parseColor("#ffffff");
