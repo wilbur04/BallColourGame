@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (hasUsername){
             username = prefs.getString("username","player");
         } else {
-            username = "player1";
+            username = "unnamed";
         }
 
         this.score = 0;
@@ -163,9 +163,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 @Override
                                 public void run() {
                                     if (!gameOver) {
+                                        if (score == 4) {  // todo change
+                                            isColour2active = true;
+                                            restore(currColourCircle2);
+                                        }
+                                        if (score == 8) { //todo change
+                                            isColour3active = true;
+                                            restore(currColourCircle3);
+                                        }
                                         if (score == scoreStore + 2) {
                                             scoreStore = score;
                                             level++;
+                                            createBalls(level);
+                                        }
+                                        if (score == scoreStore + 3) {
+                                            scoreStore = score;
+                                            bf.removeColour();
+                                        }
+                                        if (score > 30) {
                                             createBalls(level);
                                         }
                                         if (curColor == activeColour1 || curColor == activeColour2 || curColor == activeColour3) {
@@ -177,9 +192,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                 gameOver();
                                             }
                                         }
-                                        curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
-                                        BallStore.INSTANCE.removeBallByIndex(0);
-                                        button.setBackgroundColor(curColor);
+                                        if (!gameOver) {
+                                            curColor = BallStore.INSTANCE.getBallsByIndex(0).getColour();
+                                            BallStore.INSTANCE.removeBallByIndex(0);
+                                            button.setBackgroundColor(curColor);
+                                        }
                                     }
                                 }
 
@@ -202,7 +219,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void createBalls(int level){
         BallStore.INSTANCE.emptyLeast();
         bf.clearList();
-        bf.removeColour();
         bf.createColourList(level);
         for (int i = 0; i < 100; i++) {
             bf.createBall();
@@ -235,15 +251,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         score++;
                         scoreView.setText("" + score);
                         curColor = Color.parseColor("#f5f5f5");
-                        if (score == 4) {  // todo change
-                            isColour2active = true;
-                            restore(currColourCircle2);
-                        }
-                        if (score == 8) { //todo change
-                            isColour3active = true;
-                            restore(currColourCircle3);
-                        }
-
                     } else {
                         mpWrong.start();
                         restore(crossMark);
