@@ -5,5 +5,5 @@
     <string name="disableMusic">Music</string>
     <string name="disableSound">All sounds</string>
     <string name="sillySound">Silly Sounds</string>
-    <string name="changeUsername">Change Username</string>
+    <string name="changeUsername">Username: </string>
 </resources>

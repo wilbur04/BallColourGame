@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private View homeContainer, restartContainer;
     private ImageView muteButton;
     private String prefsName;
+    private boolean hasUsername;
     private String username;
     private String TAG = "";
 
@@ -91,7 +92,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txtHighScore.setTypeface(customFont);
         valHighScore.setTypeface(customFont);
 
-        username = "bob";
+        hasUsername = prefs.getBoolean("hasUsername", false);
+
+        if (hasUsername){
+            username = prefs.getString("username","player");
+        } else {
+            username = "player1";
+        }
 
         this.score = 0;
         this.lives = 3;

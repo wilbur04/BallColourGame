@@ -53,6 +53,8 @@ public class BallFactory {
             System.out.println(bigList.size());
             int rand = getRandom(0,bigList.size()-1);
             bigList.remove(rand);
+            System.out.println(bigList.size());
+
         }
     }
 
