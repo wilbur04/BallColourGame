@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bf = new BallFactory();
         createBalls(0);
 
-        if (prefs.getBoolean("sillySounds", true) ){
+        if (prefs.getBoolean("sillySounds", false) ){
             mpSuccess = MediaPlayer.create(this,R.raw.yay);
             mpWrong = MediaPlayer.create(this, R.raw.no);
         } else  {
@@ -171,14 +171,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             isColour3active = true;
                                             restore(currColourCircle3);
                                         }
+                                        if (score == scoreStore + 3) {
+                                            scoreStore = score;
+                                            bf.removeColour();
+                                        }
                                         if (score == scoreStore + 2) {
                                             scoreStore = score;
                                             level++;
                                             createBalls(level);
-                                        }
-                                        if (score == scoreStore + 3) {
-                                            scoreStore = score;
-                                            bf.removeColour();
                                         }
                                         if (score > 30) {
                                             createBalls(level);

@@ -31,14 +31,23 @@ public class BallFactory {
     }
 
     public void createColourList(int level) {
-        if (level > 6 ){
-            level = 6;
+        if (level == 6){
+            bigList.clear();
+            makeBigList();
         }
-        for (int y=0; y <= bigList.size()-1; y++) {
+
+        if (level >= 6 ){
+           int rand = getRandom(0,3);
             for (int x = 0; x <= level; x++) {
-                colourlist.add(bigList.get(y).get(x));
+                colourlist.add(bigList.get(rand).get(x));
             }
-        }System.out.println(colourlist);
+        } else {
+            for (int y = 0; y <= bigList.size() - 1; y++) {
+                for (int x = 0; x <= level; x++) {
+                    colourlist.add(bigList.get(y).get(x));
+                }
+            }
+        }
     }
 
     public void clearList(){
@@ -50,13 +59,18 @@ public class BallFactory {
 
     public void removeColour() {
         if (bigList.size() > 1) {
-            System.out.println(bigList.size());
             int rand = getRandom(0,bigList.size()-1);
             bigList.remove(rand);
-            System.out.println(bigList.size());
-
         }
     }
+
+    private void makeBigList(){
+        bigList.add(redList);
+        bigList.add(yellowList);
+        bigList.add(blueList);
+        bigList.add(greenList);
+    }
+
 
 
     private void addColour(){
@@ -68,7 +82,6 @@ public class BallFactory {
         redList.add((Color.parseColor("#cc0000")));
         redList.add((Color.parseColor("#ff6666")));
         redList.add((Color.parseColor("#660000")));
-        bigList.add(redList);
 
         yellowList.add(Color.parseColor("#ffff00"));
         yellowList.add(Color.parseColor("#808000"));
@@ -77,7 +90,6 @@ public class BallFactory {
         yellowList.add(Color.parseColor("#cc9900"));
         yellowList.add(Color.parseColor("#804d00"));
         yellowList.add(Color.parseColor("#ffecb3"));
-        bigList.add(yellowList);
 
         blueList.add(Color.parseColor("#0000ff"));
         blueList.add(Color.parseColor("#66ffff"));
@@ -86,7 +98,6 @@ public class BallFactory {
         blueList.add(Color.parseColor("#000066"));
         blueList.add(Color.parseColor("#0099cc"));
         blueList.add(Color.parseColor("#00394d"));
-        bigList.add(blueList);
 
         greenList.add(Color.parseColor("#00c957"));
         greenList.add(Color.parseColor("#b3ffb3"));
@@ -95,7 +106,8 @@ public class BallFactory {
         greenList.add(Color.parseColor("#999966"));
         greenList.add(Color.parseColor("#80ffcc"));
         greenList.add(Color.parseColor("#3d3d28"));
-        bigList.add(greenList);
+
+        makeBigList();
     }
 
 

@@ -55,6 +55,7 @@ public class StartActivity extends AppCompatActivity  implements View.OnClickLis
         usernameLayout = (RelativeLayout) findViewById(R.id.usernameScreen);
         createUsername = (EditText) findViewById(R.id.usernameCreateField);
         createUsernameBtn = (Button) findViewById(R.id.createUsernameButton);
+        createUsernameBtn.setOnClickListener(this);
         usernameView = (TextView) findViewById(R.id.usernameField);
         snackbar = snackbar.make(layout, "snackbar", Snackbar.LENGTH_LONG);
         options = (TextView) findViewById(R.id.options);
@@ -114,6 +115,7 @@ public class StartActivity extends AppCompatActivity  implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
             case R.id.startButton:
                 launchActivity(MainActivity.class);
@@ -135,8 +137,8 @@ public class StartActivity extends AppCompatActivity  implements View.OnClickLis
                         R.anim.fadein);
                 optionsLayout.startAnimation(fadeIn2);
                 optionsLayout.setVisibility(View.VISIBLE);
-                musicSwitch.setChecked(!prefs.getBoolean("musicPrefs", true));
-                soundSwitch.setChecked(!prefs.getBoolean("mute", true));
+                musicSwitch.setChecked(!prefs.getBoolean("musicPrefs", false));
+                soundSwitch.setChecked(!prefs.getBoolean("mute", false));
                 sillySoundSwitch.setChecked(prefs.getBoolean("sillySounds",false));
                 usernameView.setText(username);
 
@@ -158,11 +160,21 @@ public class StartActivity extends AppCompatActivity  implements View.OnClickLis
                     editor.putString("username", createUsername.getText().toString());
                     editor.putBoolean("hasUsername", true);
                     editor.commit();
+                    Animation fadeOut3 = AnimationUtils.loadAnimation(getApplicationContext(),
+                            R.anim.fadeout);
+                    usernameLayout.startAnimation(fadeOut3);
                     usernameLayout.setVisibility(View.INVISIBLE);
                 }
                 break;
             case R.id.createUsernameButton:
+                System.out.println("i should allow yu to create a new username");
+                Animation fadeOut4 = AnimationUtils.loadAnimation(getApplicationContext(),
+                        R.anim.fadeout);
+                optionsLayout.startAnimation(fadeOut4);
                 optionsLayout.setVisibility(View.INVISIBLE);
+                Animation fadeIn3 = AnimationUtils.loadAnimation(getApplicationContext(),
+                        R.anim.fadein);
+                usernameLayout.startAnimation(fadeIn3);
                 usernameLayout.setVisibility(View.VISIBLE);
                 createUsername.setText(username);
                 break;
